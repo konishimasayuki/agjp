@@ -18,7 +18,7 @@ export function Brand({ compact }) {
       <LogoMark size={compact ? 34 : 40} title="A&G" />
       <div className="brand-text">
         <div className="brand-name">A&G一括管理システム</div>
-        <div className="brand-sub">A&G企画株式会社</div>
+        <div className="brand-sub">株式会社A&G企画</div>
       </div>
     </div>
   );

@@ -54,6 +54,7 @@ function Company() {
         {F('tel', '電話')}
         {F('address', '住所', true)}
         {F('email', 'メールアドレス')}
+        {F('representative', '代表者')}
         {F('person', '担当部署・担当者')}
         {F('bank', '振込先（請求書に載ります）', true)}
         {F('invoiceNote', '請求書の備考', true)}

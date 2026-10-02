@@ -1,6 +1,6 @@
 # A&G一括管理システム
 
-A&G企画株式会社向けの、中国からの酒類輸入〜国内代理店への販売までを一括で管理するWebシステム（デモ版）です。
+株式会社A&G企画向けの、中国からの酒類輸入〜国内代理店への販売までを一括で管理するWebシステム（デモ版）です。
 
 Next.js 15（App Router） / React 19 / Upstash Redis / Vercel / Resend（任意）
 
@@ -46,7 +46,7 @@ Vercel のプロジェクト → **Storage** → Upstash for Redis を作成し�
 | 環境変数 | 内容 |
 |---|---|
 | `RESEND_API_KEY` | Resend の API キー |
-| `MAIL_FROM` | 送信元（例：`A&G企画 <order@your-domain.jp>`。Resend でドメイン認証が必要） |
+| `MAIL_FROM` | 送信元（例：`株式会社A&G企画 <order@your-domain.jp>`。Resend でドメイン認証が必要） |
 | `MAIL_REPLY_TO` | 返信先（任意） |
 | `MAIL_BCC` | 控えの送付先（任意） |
 

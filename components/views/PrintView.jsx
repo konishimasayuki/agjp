@@ -19,7 +19,7 @@ function PODoc({ po, data }) {
           <LogoMark size={46} />
           <div>
             <div className="doc-co">{c.name}</div>
-            <div className="doc-small">{c.zip} {c.address}<br />TEL {c.tel}　{c.email}</div>
+            <div className="doc-small">{c.zip} {c.address}<br />TEL {c.tel}　{c.email}{c.representative && <><br />代表者 {c.representative}</>}</div>
           </div>
         </div>
         <div className="doc-title-box">
@@ -94,7 +94,7 @@ function InvoiceDoc({ inv, data }) {
             <LogoMark size={42} />
             <div>
               <div className="doc-co">{c.name}</div>
-              <div className="doc-small">{c.zip} {c.address}<br />TEL {c.tel}<br />登録番号 {c.regNo}</div>
+              <div className="doc-small">{c.zip} {c.address}<br />TEL {c.tel}{c.representative && <><br />代表者 {c.representative}</>}<br />登録番号 {c.regNo}</div>
             </div>
           </div>
         </div>

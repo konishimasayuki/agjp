@@ -1,7 +1,7 @@
 'use client';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { applyOps, KEYS } from '../lib/ops';
-import { seedData, DEMO_IMAGES } from '../lib/seed';
+import { seedData, DEMO_IMAGES, COMPANY } from '../lib/seed';
 
 const LS_KEY = 'ag-ikkatsu-v1';
 const Ctx = createContext(null);
@@ -9,6 +9,9 @@ export const useStore = () => useContext(Ctx);
 
 const normalize = d => { const o = { ...(d || {}) }; for (const k of KEYS) if (o[k] == null) o[k] = k === 'settings' ? {} : [];
   o.products = o.products.map(p => (p.image === undefined && DEMO_IMAGES[p.id] ? { ...p, image: DEMO_IMAGES[p.id] } : p));
+  // 旧デモの会社情報（A&G企画株式会社）を、正しい社名・住所などに置き換える
+  const c = o.settings && o.settings.company;
+  if (c && c.name === 'A&G企画株式会社') o.settings = { ...o.settings, company: { ...c, ...COMPANY } };
   return o;
 };
 function writeLocal(d) { try { localStorage.setItem(LS_KEY, JSON.stringify(d)); return true; } catch { return false; } }

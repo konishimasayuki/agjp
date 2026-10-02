@@ -2,7 +2,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'A&G一括管理システム',
-  description: 'A&G企画株式会社 発注・在庫・受注・請求・経費の一括管理',
+  description: '株式会社A&G企画 発注・在庫・受注・請求・経費の一括管理',
 };
 
 export const viewport = { width: 'device-width', initialScale: 1, viewportFit: 'cover', themeColor: '#ffffff' };
