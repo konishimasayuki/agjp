@@ -4,7 +4,7 @@ A&G企画株式会社向けの、中国からの酒類輸入〜国内代理店�
 
 Next.js 15（App Router） / React 19 / Upstash Redis / Vercel / Resend（任意）
 
-## 機能
+## 機能 
 
 | メニュー | できること |
 |---|---|
