@@ -2,6 +2,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { applyOps, KEYS } from '../lib/ops';
 import { seedData, DEMO_IMAGES, COMPANY } from '../lib/seed';
+import { t } from '../lib/i18n';
 
 const LS_KEY = 'ag-ikkatsu-v1';
 const Ctx = createContext(null);
@@ -80,12 +81,12 @@ export function StoreProvider({ children }) {
     const next = applyOps(dataRef.current, ops);
     put(next);
     if (modeRef.current !== 'redis') {
-      if (!writeLocal(next)) { toast('ブラウザの保存容量を超えました。画像を減らすか、Upstash に接続してください', 'danger'); return false; }
+      if (!writeLocal(next)) { toast(t('ブラウザの保存容量を超えました。画像を減らすか、Upstash に接続してください'), 'danger'); return false; }
       return true;
     }
     savingRef.current++; setSaving(s => s + 1);
     try { await postOps(ops); return true; }
-    catch { toast('保存できませんでした。通信状態を確認して、もう一度お試しください', 'danger'); return false; }
+    catch { toast(t('保存できませんでした。通信状態を確認して、もう一度お試しください'), 'danger'); return false; }
     finally { savingRef.current--; setSaving(s => s - 1); }
   }, [toast]);
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { StoreProvider, useStore } from './store';
 import { Brand, LogoMark } from './Logo';
 import { Icon } from './icons';
+import LangSwitch from './LangSwitch';
 import { href } from './nav';
 import Dashboard from './views/Dashboard';
 import SalesSupport from './views/SalesSupport';
@@ -16,13 +17,14 @@ import Expenses from './views/Expenses';
 import Masters from './views/Masters';
 import OrderForm from './views/OrderForm';
 import PrintView from './views/PrintView';
+import { t } from '../lib/i18n';
 
 const NAV = [
-  { group: null, items: [{ id: '', label: 'ダッシュボード', icon: 'home', C: Dashboard }] },
-  { group: '営業', items: [{ id: 'sales', label: '営業支援', icon: 'users', C: SalesSupport, badge: 'follow' }] },
-  { group: '仕入', items: [{ id: 'purchase', label: '中国への発注', icon: 'send', C: PurchaseOrders }, { id: 'inventory', label: '在庫管理', icon: 'box', C: Inventory }] },
-  { group: '販売', items: [{ id: 'orders', label: '受注管理', icon: 'inbox', C: SalesOrders, badge: 'received' }, { id: 'invoices', label: '請求書', icon: 'doc', C: Invoices }] },
-  { group: '管理', items: [{ id: 'products', label: '商品登録', icon: 'tag', C: Products }, { id: 'expenses', label: '経費', icon: 'yen', C: Expenses }, { id: 'masters', label: 'マスタ・設定', icon: 'gear', C: Masters }] },
+  { group: null, items: [{ id: '', label: t('ダッシュボード'), icon: 'home', C: Dashboard }] },
+  { group: t('営業'), items: [{ id: 'sales', label: t('営業支援'), icon: 'users', C: SalesSupport, badge: 'follow' }] },
+  { group: t('仕入'), items: [{ id: 'purchase', label: t('中国への発注'), icon: 'send', C: PurchaseOrders }, { id: 'inventory', label: t('在庫管理'), icon: 'box', C: Inventory }] },
+  { group: t('販売'), items: [{ id: 'orders', label: t('受注管理'), icon: 'inbox', C: SalesOrders, badge: 'received' }, { id: 'invoices', label: t('請求書'), icon: 'doc', C: Invoices }] },
+  { group: t('管理'), items: [{ id: 'products', label: t('商品登録'), icon: 'tag', C: Products }, { id: 'expenses', label: t('経費'), icon: 'yen', C: Expenses }, { id: 'masters', label: t('マスタ・設定'), icon: 'gear', C: Masters }] },
 ];
 const ROUTES = Object.fromEntries(NAV.flatMap(g => g.items).map(i => [i.id, i]));
 
@@ -51,7 +53,7 @@ function Root({ publicForm }) {
     window.addEventListener('keydown', h); return () => window.removeEventListener('keydown', h);
   }, [open]);
 
-  if (!data || hash === null) return <div className="loading"><LogoMark size={52} /><span>読み込み中…</span></div>;
+  if (!data || hash === null) return <div className="loading"><LogoMark size={52} /><span suppressHydrationWarning>{t("読み込み中…")}</span></div>;
   const [page, ...rest] = hash.split('/');
   if (publicForm || page === 'order-form') return <OrderForm />;
   if (page === 'print') return <PrintView kind={rest[0]} id={rest[1]} />;
@@ -63,7 +65,7 @@ function Root({ publicForm }) {
 
   return (
     <div className="shell">
-      <aside className={'side' + (open ? ' open' : '')} aria-label="メニュー">
+      <aside className={'side' + (open ? ' open' : '')} aria-label={t("メニュー")}>
         <div className="side-brand"><Brand /></div>
         <nav className="nav">
           {NAV.map((g, gi) => (
@@ -77,21 +79,25 @@ function Root({ publicForm }) {
               ))}
             </div>
           ))}
-          <div className="nav-group">代理店向け</div>
-          <a href={formUrl()} target="_blank" rel="noreferrer"><Icon name="link" />注文フォームを開く</a>
+          <div className="nav-group">{t("代理店向け")}</div>
+          <a href={formUrl()} target="_blank" rel="noreferrer"><Icon name="link" />{t("注文フォームを開く")}</a>
         </nav>
+        <div className="side-lang"><LangSwitch /></div>
         <div className="side-foot">
           <span className={'dot ' + (mode === 'redis' ? 'dot-ok' : 'dot-local') + (saving ? ' dot-busy' : '')} />
-          {saving ? '保存中…' : mode === 'redis' ? 'Upstash に保存' : 'このブラウザに保存（デモ）'}
+          {saving ? t('保存中…') : mode === 'redis' ? t('Upstash に保存') : t('このブラウザに保存（デモ）')}
         </div>
       </aside>
       {open && <div className="scrim" onClick={() => setOpen(false)} />}
       <header className="topbar">
         <Brand compact />
-        <button type="button" className={'burger' + (open ? ' on' : '')} onClick={() => setOpen(o => !o)} aria-label={open ? 'メニューを閉じる' : 'メニューを開く'} aria-expanded={open}>
+        <div className="topbar-right">
+        <LangSwitch />
+        <button type="button" className={'burger' + (open ? ' on' : '')} onClick={() => setOpen(o => !o)} aria-label={open ? t('メニューを閉じる') : t('メニューを開く')} aria-expanded={open}>
           <span /><span /><span />
           {!open && pendingCount + followCount > 0 && <i className="burger-badge" />}
         </button>
+        </div>
       </header>
       <main className="main"><div className="main-inner" key={route.id}><View /></div></main>
     </div>

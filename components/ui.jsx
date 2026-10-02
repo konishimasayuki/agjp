@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { Icon } from './icons';
+import { t } from '../lib/i18n';
 
 export function Btn({ kind = 'primary', size, icon, children, className = '', ...p }) {
   return (
@@ -36,7 +37,7 @@ export function Modal({ title, onClose, children, footer, size }) {
       <div className={'modal ' + (size || '')} role="dialog" aria-modal="true" aria-label={title} ref={box}>
         <div className="modal-head">
           <h2>{title}</h2>
-          <button type="button" className="icon-btn" onClick={onClose} aria-label="閉じる">×</button>
+          <button type="button" className="icon-btn" onClick={onClose} aria-label={t("閉じる")}>×</button>
         </div>
         <div className="modal-body">{children}</div>
         {footer && <div className="modal-foot">{footer}</div>}
@@ -86,10 +87,10 @@ export function Stepper({ value, onChange, min = 0, label }) {
   const v = Number(value) || 0;
   return (
     <div className="stepper">
-      <button type="button" onClick={() => onChange(Math.max(min, v - 1))} aria-label={label + 'を1減らす'} disabled={v <= min}>−</button>
+      <button type="button" onClick={() => onChange(Math.max(min, v - 1))} aria-label={label + t('を1減らす')} disabled={v <= min}>−</button>
       <input type="number" inputMode="numeric" min={min} value={v || ''} placeholder="0" aria-label={label}
         onChange={e => onChange(Math.max(min, parseInt(e.target.value || '0', 10) || 0))} />
-      <button type="button" onClick={() => onChange(v + 1)} aria-label={label + 'を1増やす'}>＋</button>
+      <button type="button" onClick={() => onChange(v + 1)} aria-label={label + t('を1増やす')}>＋</button>
     </div>
   );
 }

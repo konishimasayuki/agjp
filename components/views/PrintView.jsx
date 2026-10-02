@@ -6,6 +6,7 @@ import { Btn, Modal, Field, Empty } from '../ui';
 import { go } from '../nav';
 import { byId, fmtDate, num, yen, cnyF, caseSum, lineSum, todayStr } from '../../lib/biz';
 import { poMail, invoiceMail } from '../../lib/mail';
+import { t } from '../../lib/i18n';
 
 function PODoc({ po, data }) {
   const c = data.settings.company || {};
@@ -152,32 +153,32 @@ function MailModal({ mail, onClose, onSent }) {
   const [state, setState] = useState('idle'); // idle | sending | fallback
   const [reason, setReason] = useState('');
   const send = async () => {
-    if (!to) { setReason('宛先メールアドレスを入れてください'); return; }
+    if (!to) { setReason(t('宛先メールアドレスを入れてください')); return; }
     setState('sending'); setReason('');
     try {
       if (window.__AG_PREVIEW__) throw new Error('preview');
       const r = await fetch('/api/send-mail', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ to, cc, subject, html: mail.html, text }) });
       const j = await r.json().catch(() => ({}));
-      if (j.ok) { toast('メールを送信しました'); onSent(); onClose(); return; }
-      setReason(j.reason === 'not_configured' ? 'メール送信（Resend）の設定がまだのため、システムから直接送れません。' : '送信に失敗しました：' + (j.reason || '不明なエラー'));
+      if (j.ok) { toast(t('メールを送信しました')); onSent(); onClose(); return; }
+      setReason(j.reason === 'not_configured' ? t('メール送信（Resend）の設定がまだのため、システムから直接送れません。') : t('送信に失敗しました：') + (j.reason || t('不明なエラー')));
     } catch {
-      setReason('このデモ環境ではシステムから直接送れません。');
+      setReason(t('このデモ環境ではシステムから直接送れません。'));
     }
     setState('fallback');
   };
   const mailto = `mailto:${encodeURIComponent(to)}?${cc ? 'cc=' + encodeURIComponent(cc) + '&' : ''}subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   return (
-    <Modal title="メールで送信" onClose={onClose} size="lg"
+    <Modal title={t("メールで送信")} onClose={onClose} size="lg"
       footer={state === 'fallback'
-        ? <><Btn kind="ghost" onClick={onClose}>閉じる</Btn><a className="btn btn-sub" href={mailto}>メールアプリで開く</a><Btn icon="check" onClick={() => { onSent(); toast('送信済みにしました'); onClose(); }}>送信済みにする</Btn></>
-        : <><Btn kind="ghost" onClick={onClose}>キャンセル</Btn><Btn icon="mail" onClick={send} disabled={state === 'sending'}>{state === 'sending' ? '送信中…' : 'この内容で送信'}</Btn></>}>
-      {reason && <div className="notice notice-warn">{reason}{state === 'fallback' && <> 「メールアプリで開く」で同じ内容のメールを作れます。PDFを添付する場合は、先に画面上部の「印刷・PDF保存」で保存してください。送った後に「送信済みにする」を押すと状態が更新されます。</>}</div>}
+        ? <><Btn kind="ghost" onClick={onClose}>{t("閉じる")}</Btn><a className="btn btn-sub" href={mailto}>{t("メールアプリで開く")}</a><Btn icon="check" onClick={() => { onSent(); toast(t('送信済みにしました')); onClose(); }}>{t("送信済みにする")}</Btn></>
+        : <><Btn kind="ghost" onClick={onClose}>{t("キャンセル")}</Btn><Btn icon="mail" onClick={send} disabled={state === 'sending'}>{state === 'sending' ? t('送信中…') : t('この内容で送信')}</Btn></>}>
+      {reason && <div className="notice notice-warn">{reason}{state === 'fallback' && <>{' '}{t("「メールアプリで開く」で同じ内容のメールを作れます。PDFを添付する場合は、先に画面上部の「印刷・PDF保存」で保存してください。送った後に「送信済みにする」を押すと状態が更新されます。")}</>}</div>}
       <div className="grid2">
-        <Field label="宛先"><input type="email" value={to} onChange={e => setTo(e.target.value)} /></Field>
-        <Field label="CC（任意）"><input type="email" value={cc} onChange={e => setCc(e.target.value)} /></Field>
+        <Field label={t("宛先")}><input type="email" value={to} onChange={e => setTo(e.target.value)} /></Field>
+        <Field label={t("CC（任意）")}><input type="email" value={cc} onChange={e => setCc(e.target.value)} /></Field>
       </div>
-      <Field label="件名" wide><input type="text" value={subject} onChange={e => setSubject(e.target.value)} /></Field>
-      <Field label="本文（テキスト版）" hint="システムから送る場合は、表組みされたHTML版の発注書・請求書が本文に入ります。" wide>
+      <Field label={t("件名")} wide><input type="text" value={subject} onChange={e => setSubject(e.target.value)} /></Field>
+      <Field label={t("本文（テキスト版）")} hint={t("システムから送る場合は、表組みされたHTML版の発注書・請求書が本文に入ります。")} wide>
         <textarea rows={12} value={text} onChange={e => setText(e.target.value)} className="mono-ish" />
       </Field>
     </Modal>
@@ -190,7 +191,7 @@ export default function PrintView({ kind, id }) {
   const isPO = kind === 'po';
   const doc = isPO ? byId(data.purchaseOrders, id) : byId(data.invoices, id);
   const backTo = isPO ? 'purchase' : 'invoices';
-  if (!doc) return <div className="print-wrap"><Empty title="書類が見つかりません" action={<Btn onClick={() => go(backTo)}>一覧に戻る</Btn>}>削除されたか、URLが間違っている可能性があります。</Empty></div>;
+  if (!doc) return <div className="print-wrap"><Empty title={t("書類が見つかりません")} action={<Btn onClick={() => go(backTo)}>{t("一覧に戻る")}</Btn>}>{t("削除されたか、URLが間違っている可能性があります。")}</Empty></div>;
 
   const openMail = () => setMail(isPO ? poMail(doc, data) : invoiceMail(doc, data));
   const onSent = () => {
@@ -198,17 +199,17 @@ export default function PrintView({ kind, id }) {
     else commit([{ op: 'upsert', key: 'invoices', item: { id: doc.id, sentAt: todayStr() } }]);
   };
   const sentLabel = isPO
-    ? (doc.status === 'draft' ? '未送信（下書き）' : `送信済み ${fmtDate(doc.sentAt)}`)
-    : (doc.sentAt ? `メール送信済み ${fmtDate(doc.sentAt)}` : '');
+    ? (doc.status === 'draft' ? t('未送信（下書き）') : t`送信済み ${fmtDate(doc.sentAt)}`)
+    : (doc.sentAt ? t`メール送信済み ${fmtDate(doc.sentAt)}` : '');
 
   return (
     <div className="print-wrap">
       <div className="print-bar no-print">
-        <Btn kind="ghost" icon="back" onClick={() => go(backTo)}>{isPO ? '発注一覧' : '請求書一覧'}</Btn>
+        <Btn kind="ghost" icon="back" onClick={() => go(backTo)}>{isPO ? t('発注一覧') : t('請求書一覧')}</Btn>
         <div className="print-bar-mid">{doc.no}{sentLabel && <span className="muted">　{sentLabel}</span>}</div>
         <div className="print-bar-actions">
-          <Btn kind="sub" icon="print" onClick={() => window.print()}>印刷・PDF保存</Btn>
-          <Btn icon="mail" onClick={openMail}>{isPO ? (doc.status === 'draft' ? '仕入先へメールで発注' : 'メールを再送') : '代理店へメール'}</Btn>
+          <Btn kind="sub" icon="print" onClick={() => window.print()}>{t("印刷・PDF保存")}</Btn>
+          <Btn icon="mail" onClick={openMail}>{isPO ? (doc.status === 'draft' ? t('仕入先へメールで発注') : t('メールを再送')) : t('代理店へメール')}</Btn>
         </div>
       </div>
       {isPO ? <PODoc po={doc} data={data} /> : <InvoiceDoc inv={doc} data={data} />}

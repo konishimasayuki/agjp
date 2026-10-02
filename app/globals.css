@@ -565,3 +565,21 @@ button.mchart-col { cursor: pointer; }
   .cell-in { text-align: right; }
   .sales-tbl td.lead { padding-top: 0; }
 }
+
+/* ---------- 言語切り替え ---------- */
+.lang-sw { display: inline-flex; background: var(--mist); border-radius: 999px; padding: 3px; gap: 2px; flex: none; }
+.lang-sw button { border: 0; background: transparent; color: var(--ai); font: inherit; font-size: 13px; font-weight: 700; line-height: 1; padding: 8px 12px; border-radius: 999px; cursor: pointer; min-height: 34px; white-space: nowrap; }
+.lang-sw button.on { background: var(--ai); color: #fff; box-shadow: 0 1px 3px rgba(18, 44, 102, .25); }
+.lang-sw button:not(.on):hover { background: #fff; }
+.topbar-right { display: flex; align-items: center; gap: 4px; }
+.side-lang { padding: 10px 18px 0; border-top: 1px solid var(--line); }
+.side-lang + .side-foot { border-top: 0; padding-top: 10px; }
+.of-head-right { display: inline-flex; align-items: center; gap: 12px; }
+@media (max-width: 380px) { .lang-sw button { padding: 8px 9px; font-size: 12.5px; } .brand-sub { display: none; } }
+@media (max-width: 900px) { .side-lang { display: block; } }
+@media (max-width: 340px) {
+  .topbar { padding-left: 10px; padding-right: 4px; }
+  .topbar .brand-name { font-size: 13px; }
+  .topbar .brand svg { width: 28px; height: 28px; }
+  .lang-sw button { padding: 8px 7px; }
+}

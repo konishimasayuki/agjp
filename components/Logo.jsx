@@ -1,4 +1,5 @@
-// A&G ロゴ：落款（印）をモチーフに、酒の水面を波線で表現
+
+import { t } from '../lib/i18n';// A&G ロゴ：落款（印）をモチーフに、酒の水面を波線で表現
 export function LogoMark({ size = 40, title }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" role={title ? 'img' : undefined} aria-label={title} aria-hidden={title ? undefined : true}>
@@ -17,8 +18,8 @@ export function Brand({ compact }) {
     <div className="brand">
       <LogoMark size={compact ? 34 : 40} title="A&G" />
       <div className="brand-text">
-        <div className="brand-name">A&G一括管理システム</div>
-        <div className="brand-sub">株式会社A&G企画</div>
+        <div className="brand-name">{t("A&G一括管理システム")}</div>
+        <div className="brand-sub">{t("株式会社A&G企画")}</div>
       </div>
     </div>
   );
