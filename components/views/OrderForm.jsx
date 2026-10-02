@@ -69,7 +69,7 @@ export default function OrderForm() {
           <h2><span className="of-n">1</span>ご注文の代理店</h2>
           <select id="of-agent" value={agentId} onChange={e => { setAgentId(e.target.value); setDeliveryTo(byId(data.agents, e.target.value)?.address || ''); }}>
             <option value="">選んでください</option>
-            {data.agents.map(a => <option key={a.id} value={a.id}>{a.code}　{a.name}</option>)}
+            {data.agents.filter(a => !a.stage || a.stage === 'active' || a.stage === 'dormant').map(a => <option key={a.id} value={a.id}>{a.code}　{a.name}</option>)}
           </select>
         </section>
 

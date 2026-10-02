@@ -1,13 +1,16 @@
 'use client';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { applyOps, KEYS } from '../lib/ops';
-import { seedData } from '../lib/seed';
+import { seedData, DEMO_IMAGES } from '../lib/seed';
 
 const LS_KEY = 'ag-ikkatsu-v1';
 const Ctx = createContext(null);
 export const useStore = () => useContext(Ctx);
 
-const normalize = d => { const o = { ...(d || {}) }; for (const k of KEYS) if (o[k] == null) o[k] = k === 'settings' ? {} : []; return o; };
+const normalize = d => { const o = { ...(d || {}) }; for (const k of KEYS) if (o[k] == null) o[k] = k === 'settings' ? {} : [];
+  o.products = o.products.map(p => (p.image === undefined && DEMO_IMAGES[p.id] ? { ...p, image: DEMO_IMAGES[p.id] } : p));
+  return o;
+};
 function writeLocal(d) { try { localStorage.setItem(LS_KEY, JSON.stringify(d)); return true; } catch { return false; } }
 function readLocal() {
   try { const s = localStorage.getItem(LS_KEY); if (s) return normalize(JSON.parse(s)); } catch {}

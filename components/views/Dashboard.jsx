@@ -3,6 +3,7 @@ import { useStore } from '../store';
 import { Icon } from '../icons';
 import { Chip, ProductThumb } from '../ui';
 import { href } from '../nav';
+import { agentStats, needsFollow } from '../../lib/sales';
 import { todayStr, ym, addMonths, fmtDateLong, fmtDate, fmtMonth, yen, num, monthPL, stockOf, reservedOf, incomingOf, totals, byId, caseSum } from '../../lib/biz';
 
 export default function Dashboard() {
@@ -25,8 +26,10 @@ export default function Dashboard() {
   const recent = [...data.salesOrders].sort((a, b) => (b.createdAt || b.date).localeCompare(a.createdAt || a.date)).slice(0, 6);
   const maxStock = Math.max(1, ...stockRows.map(r => Math.max(r.stock, r.p.reorderPoint || 0)));
 
+  const followRows = data.agents.map(a => agentStats(data, a, t)).filter(needsFollow);
   const todos = [
     { n: pending.length, label: '出荷待ちの受注', detail: pending.length ? `${num(pending.reduce((s, o) => s + caseSum(o.lines), 0))}ケース分を倉庫から出荷` : '新しい注文はまだありません', to: 'orders', icon: 'truck' },
+    { n: followRows.length, label: '今日までにフォローする代理店', detail: followRows.length ? followRows.slice(0, 3).map(r => r.agent.name).join('、') + (followRows.length > 3 ? ' ほか' : '') : '期限の来ている営業アクションはありません', to: 'sales', icon: 'users', tone: followRows.some(r => r.overdue) ? 'warn' : '' },
     { n: low.length, label: '発注点を下回った商品', detail: low.length ? low.slice(0, 3).map(r => r.p.name).join('、') + (low.length > 3 ? ' ほか' : '') : '在庫は足りています', to: 'inventory', icon: 'box', tone: low.length ? 'warn' : '' },
     { n: drafts.length, label: '未送信の発注書', detail: drafts.length ? drafts.map(d => d.no).join('、') : '下書きはありません', to: 'purchase', icon: 'send' },
     { n: incoming.length, label: '中国からの入荷待ち', detail: incoming.length ? incoming.map(p => `${p.no}（納期 ${fmtDate(p.deliveryDate)}）`).join('、') : '入荷待ちはありません', to: 'purchase', icon: 'inbox' },

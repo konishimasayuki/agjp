@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import { useStore } from '../store';
 import { Btn, Field, Modal, Chip, Empty, PageHead, ProductThumb } from '../ui';
+import { DEMO_IMAGES, DEMO_IMAGE_CREDITS } from '../../lib/seed';
 import { Icon } from '../icons';
 import { uid, yen, num, rmb, stockOf, spec, compressImage } from '../../lib/biz';
 
@@ -37,6 +38,13 @@ export default function Products() {
           })}
         </div>
       ) : <Empty title={q ? '見つかりませんでした' : '商品がまだありません'} action={!q && <Btn icon="plus" onClick={() => setEdit({})}>商品を追加</Btn>} />}
+      {data.products.some(p => DEMO_IMAGE_CREDITS[p.id] && p.image === DEMO_IMAGES[p.id]) && (
+        <details className="credits">
+          <summary>サンプル写真のクレジット</summary>
+          <p className="muted small">デモ用に Wikimedia Commons の写真を使っています。実際の商品写真に差し替えてください。</p>
+          <ul>{data.products.filter(p => DEMO_IMAGE_CREDITS[p.id] && p.image === DEMO_IMAGES[p.id]).map(p => <li key={p.id}>{p.name}：{DEMO_IMAGE_CREDITS[p.id]}</li>)}</ul>
+        </details>
+      )}
       {edit && <ProductModal product={edit.id ? edit : null} onClose={() => setEdit(null)} />}
     </>
   );

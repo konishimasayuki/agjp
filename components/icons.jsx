@@ -18,6 +18,8 @@ const P = {
   copy: <><rect x="8" y="8" width="11" height="11" rx="1.5" /><path d="M5 15V5h10" /></>,
   search: <><circle cx="11" cy="11" r="6" /><path d="m16 16 4 4" /></>,
   alert: <><path d="M12 4 21 19.5H3L12 4Z" /><path d="M12 10v4.5M12 17v.5" /></>,
+  users: <><circle cx="9" cy="8.5" r="3" /><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" /><circle cx="17" cy="9.5" r="2.4" /><path d="M16.5 14.2c2.4 0 4 1.6 4 4.3" /></>,
+  phone: <path d="M6.5 4h3l1.5 4-2 1.2a11 11 0 0 0 5.8 5.8l1.2-2 4 1.5v3a2 2 0 0 1-2 2A15 15 0 0 1 4.5 6a2 2 0 0 1 2-2Z" />,
   chev: <path d="m9.5 6 6 6-6 6" />,
 };
 export function Icon({ name, size = 20, className }) {

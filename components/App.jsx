@@ -5,6 +5,8 @@ import { Brand, LogoMark } from './Logo';
 import { Icon } from './icons';
 import { href } from './nav';
 import Dashboard from './views/Dashboard';
+import SalesSupport from './views/SalesSupport';
+import { agentStats, needsFollow } from '../lib/sales';
 import PurchaseOrders from './views/PurchaseOrders';
 import Inventory from './views/Inventory';
 import SalesOrders, { formUrl } from './views/SalesOrders';
@@ -17,6 +19,7 @@ import PrintView from './views/PrintView';
 
 const NAV = [
   { group: null, items: [{ id: '', label: 'ダッシュボード', icon: 'home', C: Dashboard }] },
+  { group: '営業', items: [{ id: 'sales', label: '営業支援', icon: 'users', C: SalesSupport, badge: 'follow' }] },
   { group: '仕入', items: [{ id: 'purchase', label: '中国への発注', icon: 'send', C: PurchaseOrders }, { id: 'inventory', label: '在庫管理', icon: 'box', C: Inventory }] },
   { group: '販売', items: [{ id: 'orders', label: '受注管理', icon: 'inbox', C: SalesOrders, badge: 'received' }, { id: 'invoices', label: '請求書', icon: 'doc', C: Invoices }] },
   { group: '管理', items: [{ id: 'products', label: '商品登録', icon: 'tag', C: Products }, { id: 'expenses', label: '経費', icon: 'yen', C: Expenses }, { id: 'masters', label: 'マスタ・設定', icon: 'gear', C: Masters }] },
@@ -55,6 +58,8 @@ function Root({ publicForm }) {
   const route = ROUTES[page] || ROUTES[''];
   const View = route.C;
   const pendingCount = data.salesOrders.filter(o => o.status === 'received').length;
+  const followCount = data.agents.filter(a => needsFollow(agentStats(data, a))).length;
+  const badges = { received: pendingCount, follow: followCount };
 
   return (
     <div className="shell">
@@ -67,7 +72,7 @@ function Root({ publicForm }) {
               {g.items.map(it => (
                 <a key={it.id} href={href(it.id)} className={route.id === it.id ? 'active' : ''} aria-current={route.id === it.id ? 'page' : undefined}>
                   <Icon name={it.icon} />{it.label}
-                  {it.badge && pendingCount > 0 && <span className="nav-badge num">{pendingCount}</span>}
+                  {it.badge && badges[it.badge] > 0 && <span className="nav-badge num">{badges[it.badge]}</span>}
                 </a>
               ))}
             </div>
@@ -85,7 +90,7 @@ function Root({ publicForm }) {
         <Brand compact />
         <button type="button" className={'burger' + (open ? ' on' : '')} onClick={() => setOpen(o => !o)} aria-label={open ? 'メニューを閉じる' : 'メニューを開く'} aria-expanded={open}>
           <span /><span /><span />
-          {!open && pendingCount > 0 && <i className="burger-badge" />}
+          {!open && pendingCount + followCount > 0 && <i className="burger-badge" />}
         </button>
       </header>
       <main className="main"><div className="main-inner" key={route.id}><View /></div></main>
