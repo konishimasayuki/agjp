@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A&amp;G企画｜中古医療機器の販売・買取</title>
+<meta name="description" content="株式会社A&G企画は、千葉県柏市を拠点に中古医療機器の販売・買取を全国で行っています。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+Arabic:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: 清潔・誠実・実務的。院長が安心して相談できる中古医療機器の専門業者
+IDEA: 医療機器のカタログ兼、買取窓口。「買いたい」「売りたい」の二本柱
+PICTURE: 実際の医療機器の写真（CT室をヒーローに、商品・カテゴリも写真）
+COLOUR/TYPE: 白地、墨ネイビー、名刺ロゴのオレンジ。Noto Sans（日・中・アラビア）
+LAYOUT: ヘッダー→ヒーロー→検索→新着→カテゴリ→強み→買取→流れ→会社→問合せ
+*/
+:root{
+  --navy:#1c2f4a;--navy2:#2a4466;--org:#e8612c;--org-d:#c94e1d;--org-l:#fdeee6;--sky:#eef2f7;
+  --ink:#1d232c;--mute:#5d6470;--line:#e1e5eb;--bg:#f6f7f9;--r:14px;--w:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:130px}
+body{font-family:"Noto Sans JP",system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.75;font-size:15px;overflow-x:clip}
+html[lang=zh-CN] body{font-family:"Noto Sans SC","Noto Sans JP",sans-serif}
+html[lang=ar] body{font-family:"Noto Sans Arabic","Noto Sans JP",sans-serif;line-height:1.9}
+html[lang=en] body{line-height:1.65}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+button,input,select,textarea{font:inherit}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+/* top bar */
+.topbar{background:var(--navy);color:#c8d1de;font-size:12px}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;min-height:36px;gap:12px}
+.topbar nav{display:flex;gap:18px}
+.topbar a:hover{color:#fff}
+.lang{display:flex;gap:2px;background:rgba(255,255,255,.08);border-radius:999px;padding:2px}
+.lang button{border:0;background:none;color:#c8d1de;font-size:12px;padding:3px 10px;border-radius:999px;cursor:pointer;min-height:26px}
+.lang button.on{background:#fff;color:var(--navy);font-weight:700}
+.tb-r{display:flex;align-items:center;gap:18px}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 1px 0 var(--line)}
+.hd{display:flex;align-items:center;gap:22px;height:78px}
+.logo{display:flex;align-items:center;gap:10px;flex:none}
+.logo svg{width:48px;height:40px;flex:none}
+.logo-txt{line-height:1.2}
+.logo-txt strong{display:block;font-size:18px;letter-spacing:.02em}
+.logo-txt small{display:block;font-size:10px;color:var(--mute);letter-spacing:.12em;margin-top:2px;direction:ltr}
+.hsearch{flex:1;display:flex;max-width:400px;border:1.5px solid var(--line);border-radius:999px;overflow:hidden;background:var(--bg)}
+.hsearch input{flex:1;border:0;background:none;padding:0 18px;height:44px;font-size:14px}
+.hsearch input:focus{outline:none}
+.hsearch:focus-within{border-color:var(--navy)}
+.hsearch button{border:0;background:var(--navy);color:#fff;width:52px;cursor:pointer;display:grid;place-items:center}
+.hd-tel{margin-inline-start:auto;line-height:1.25;text-align:end}
+.hd-tel small{font-size:11px;color:var(--mute)}
+.hd-tel b{display:block;font-size:22px;color:var(--navy);letter-spacing:.02em;white-space:nowrap}
+.hd-cta{display:flex;gap:8px}
+.burger{display:none;margin-inline-start:auto;width:46px;height:46px;border:0;border-radius:12px;background:var(--sky);cursor:pointer}
+.burger span{display:block;width:20px;height:2px;background:var(--navy);margin:4px auto}
+.catbar{border-top:1px solid var(--line)}
+.catbar ul{display:flex;list-style:none;gap:2px;overflow-x:auto;scrollbar-width:none}
+.catbar li{flex:none}
+.catbar a{display:block;padding:12px 16px;font-size:14px;font-weight:500;white-space:nowrap;border-bottom:3px solid transparent}
+.catbar a:hover{color:var(--navy);border-color:var(--navy)}
+.catbar li.s a{color:var(--org)}
+.catbar li.s a:hover{border-color:var(--org)}
+
+/* drawer */
+.drawer{position:fixed;inset:0;background:rgba(28,47,74,.5);z-index:100;opacity:0;pointer-events:none;transition:.25s}
+.drawer.open{opacity:1;pointer-events:auto}
+.drawer-in{position:absolute;inset-block:0;inset-inline-end:0;width:min(86vw,340px);background:#fff;padding:20px;overflow-y:auto;transform:translateX(100%);transition:.25s}
+[dir=rtl] .drawer-in{transform:translateX(-100%)}
+.drawer.open .drawer-in{transform:none}
+.drawer-in .x{display:block;margin-inline-start:auto;border:0;background:none;font-size:30px;color:var(--navy);cursor:pointer;width:44px;height:44px}
+.drawer-in h4{font-size:12px;color:var(--mute);margin:18px 0 4px}
+.drawer-in a.dl{display:block;padding:12px 4px;border-bottom:1px solid var(--line);font-weight:500}
+.drawer .lang{background:var(--sky);margin-top:4px;flex-wrap:wrap}
+.drawer .lang button{color:var(--navy);font-size:14px;min-height:40px;flex:1}
+.drawer .lang button.on{background:var(--navy);color:#fff}
+.dtel{display:grid;gap:10px;margin-top:20px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;font-weight:700;border:0;cursor:pointer;transition:.2s;font-size:15px;white-space:nowrap}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy2)}
+.btn-org{background:var(--org);color:#fff}.btn-org:hover{background:var(--org-d)}
+.btn-sm{min-height:42px;padding:0 18px;font-size:14px}
+
+/* hero */
+.hero{background:linear-gradient(180deg,var(--sky),#fff);position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;padding-top:48px;padding-bottom:80px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+.hero-tags span{font-size:12px;font-weight:700;color:var(--navy);background:#fff;border:1px solid #d3dbe6;padding:4px 12px;border-radius:999px}
+.hero h1{font-size:clamp(30px,4.2vw,50px);line-height:1.25;font-weight:900;margin:18px 0 16px;color:var(--navy);text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--org)}
+.hero h1 span{display:block}
+.hero p.lead{color:var(--mute);font-size:16px;max-width:32em}
+.hero-cta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;max-width:520px}
+.bigbtn{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;color:#fff;transition:.2s}
+.bigbtn:hover{transform:translateY(-2px)}
+.bigbtn.buy{background:var(--navy);box-shadow:0 10px 24px rgba(28,47,74,.22)}
+.bigbtn.sell{background:var(--org);box-shadow:0 10px 24px rgba(232,97,44,.28)}
+.bigbtn .ic{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center;flex:none}
+.bigbtn small{display:block;font-size:12px;opacity:.85}
+.bigbtn b{font-size:18px}
+.badges{display:flex;gap:16px;margin-top:22px;flex-wrap:wrap}
+.badges div{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--navy)}
+.badges i{width:24px;height:24px;border-radius:50%;background:var(--org-l);color:var(--org);display:grid;place-items:center;font-style:normal;font-size:12px}
+.hero-pic{position:relative}
+.hero-pic .ph-main{border-radius:24px;overflow:hidden;box-shadow:0 24px 50px rgba(28,47,74,.18);aspect-ratio:11/10}
+.hero-pic .ph-main img{width:100%;height:100%;object-fit:cover}
+.hero-pic .float{position:absolute;inset-inline-start:-24px;bottom:-24px;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 14px 34px rgba(28,47,74,.16);display:flex;align-items:center;gap:12px}
+.hero-pic .float img{width:64px;height:48px;border-radius:8px;object-fit:cover}
+.hero-pic .float b{display:block;font-size:14px;color:var(--navy)}
+.hero-pic .float small{font-size:12px;color:var(--mute)}
+.hero-pic .stamp{position:absolute;inset-inline-end:18px;top:18px;background:var(--org);color:#fff;font-weight:700;font-size:13px;padding:6px 14px;border-radius:999px}
+
+/* search */
+.search{margin-top:-40px;position:relative;z-index:3}
+.sp{background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(28,47,74,.12);padding:22px 24px}
+.sp-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.pill{border:0;background:var(--bg);padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;color:var(--mute);cursor:pointer;min-height:38px}
+.pill.on{background:var(--navy);color:#fff}
+.sp-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.4fr) auto;gap:10px}
+.sp select,.sp input{height:48px;border:1px solid var(--line);border-radius:10px;padding:0 14px;background:var(--bg);font-size:16px;width:100%}
+.sp select:focus,.sp input:focus,.fr input:focus,.fr select:focus,.fr textarea:focus{outline:2px solid var(--navy);border-color:transparent;background:#fff}
+
+/* sections */
+section{padding:84px 0}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+.sh h2{font-size:clamp(22px,2.8vw,30px);font-weight:900;color:var(--navy);line-height:1.3;display:flex;align-items:center;gap:12px}
+.sh h2::before{content:"";width:8px;height:28px;border-radius:4px;background:var(--org);flex:none}
+.sh p{color:var(--mute);margin-top:6px}
+.sh a.more{font-size:14px;font-weight:700;color:var(--navy)}
+.soft{background:var(--bg)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r)}
+
+/* news */
+.news-wrap{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px}
+.news{padding:8px 26px}
+.news li{list-style:none;display:grid;grid-template-columns:96px 84px minmax(0,1fr);gap:12px;align-items:center;padding:16px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.news li:last-child{border:0}
+.news time{color:var(--mute);font-variant-numeric:tabular-nums}
+.tag{font-size:11px;font-weight:700;text-align:center;padding:2px 4px;border-radius:4px}
+.t-info{background:var(--sky);color:var(--navy)}.t-sell{background:var(--org-l);color:var(--org-d)}.t-new{background:#e7f4ec;color:#1f7a45}
+.member{padding:26px;background:var(--navy);color:#fff;border:0;display:flex;flex-direction:column;gap:12px}
+.member h3{font-size:19px}
+.member p{font-size:14px;color:#c8d1de}
+.member ul{list-style:none;font-size:14px;display:grid;gap:4px}
+.member li::before{content:"✓ ";color:#ffb28f;font-weight:700}
+.member .btn{background:#fff;color:var(--navy);align-self:flex-start}
+
+/* products */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.chips:empty{display:none}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 16px;font-size:13px;font-weight:700;cursor:pointer;color:var(--mute);min-height:38px}
+.chips button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pc{display:flex;flex-direction:column;overflow:hidden;transition:.2s}
+.pc:hover{box-shadow:0 12px 30px rgba(28,47,74,.12);transform:translateY(-3px)}
+.pc-img{aspect-ratio:4/3;background:var(--sky);position:relative;overflow:hidden}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.pc:hover .pc-img img{transform:scale(1.04)}
+.st{position:absolute;top:10px;inset-inline-start:10px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;color:#fff}
+.st.s1{background:var(--navy)}.st.s2{background:var(--org)}.st.s3{background:#7d8594}.st.s4{background:#1f7a45}
+.pc-b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pc-b .cat{font-size:12px;color:var(--org-d);font-weight:700}
+.pc-b h3{font-size:15px;line-height:1.5}
+.pc-b dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12px;color:var(--mute)}
+.pc-b dd{color:var(--ink)}
+.price{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.price b{font-size:17px;color:var(--navy);white-space:nowrap;direction:ltr}
+.price .ask{font-size:13px;color:var(--org-d);font-weight:700}
+.price small{font-size:11px;color:var(--mute)}
+.note{font-size:12px;color:var(--mute);margin-top:14px}
+.empty{display:none;padding:40px;text-align:center;color:var(--mute)}
+
+/* categories */
+.tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.tabs button{background:#fff;border:1px solid var(--line);padding:10px 22px;border-radius:999px;font-weight:700;cursor:pointer;color:var(--mute);min-height:44px}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.cg{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;cursor:pointer;display:block}
+.cg img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.cg:hover img{transform:scale(1.06)}
+.cg span{position:absolute;inset:auto 0 0 0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(16,28,46,.85));color:#fff;font-weight:700;font-size:14px}
+.dgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.dg{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 8px;text-align:center;font-weight:700;font-size:14px;cursor:pointer;transition:.2s}
+.dg:hover{border-color:var(--org);color:var(--org-d)}
+
+/* strengths */
+.str{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.sc{padding:28px 22px}
+.sc .ic{width:56px;height:56px;border-radius:16px;background:var(--org-l);color:var(--org);display:grid;place-items:center;margin-bottom:14px}
+.sc h3{font-size:17px;color:var(--navy);margin-bottom:8px}
+.sc p{font-size:14px;color:var(--mute)}
+
+/* sell */
+.sellsec{background:var(--navy);color:#fff}
+.sellsec .sh h2{color:#fff}
+.sellsec .sh p{color:#c8d1de}
+.sell-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px}
+.ways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.way{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:20px}
+.way small{color:#ffb28f;font-weight:700;font-size:12px}
+.way b{display:block;font-size:19px;margin:4px 0 2px;overflow-wrap:anywhere}
+.way p{font-size:13px;color:#c8d1de}
+.cases{background:#fff;color:var(--ink);border-radius:var(--r);padding:26px}
+.cases h3{color:var(--navy);font-size:17px;margin-bottom:12px}
+.cases li{list-style:none;display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.cases li:last-child{border:0}
+.cases li i{flex:none;width:24px;height:24px;border-radius:50%;background:var(--org);color:#fff;display:grid;place-items:center;font-style:normal;font-size:12px;margin-top:2px}
+.cases li b{display:block}
+.cases li span{color:var(--mute);font-size:13px}
+.sell-cta{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.sell-cta .ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;list-style:none}
+.flow li{padding:22px 16px;text-align:center}
+.flow .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;font-weight:900;margin-bottom:10px}
+.flow.sf .n{background:var(--org)}
+.flow b{display:block;color:var(--navy);margin-bottom:4px}
+.flow p{font-size:13px;color:var(--mute)}
+
+/* pickup */
+.pick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.pk{overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.pk:hover{box-shadow:0 12px 30px rgba(28,47,74,.1)}
+.pk img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.pk-b{padding:20px}
+.pk-b h3{font-size:16px;color:var(--navy);margin-bottom:6px}
+.pk-b p{font-size:13px;color:var(--mute)}
+
+/* company */
+.co{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:24px;align-items:start}
+table.ct{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+table.ct th,table.ct td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:start;font-size:14px;vertical-align:top}
+table.ct th{width:150px;background:var(--bg);color:var(--navy)}
+table.ct tr:last-child>*{border-bottom:0}
+.ph{color:#a2560b;background:#fff3e3;padding:0 6px;border-radius:4px;font-size:12px}
+.side{display:grid;gap:18px}
+.lic{padding:24px}
+.lic h3{color:var(--navy);font-size:16px;margin-bottom:6px}
+.lic li{list-style:none;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.lic li b{display:block;font-size:14px}
+.mapbox{padding:22px;display:flex;align-items:center;gap:14px}
+.mapbox .ic{width:48px;height:48px;border-radius:12px;background:var(--org-l);color:var(--org);display:grid;place-items:center;flex:none}
+.mapbox b{display:block;color:var(--navy)}
+.mapbox a{font-size:13px;color:var(--org-d);font-weight:700}
+
+/* contact */
+.contact{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:24px}
+.ci-box{padding:28px;display:flex;flex-direction:column;gap:14px}
+.tl{border-radius:12px;padding:16px 18px;border:1px solid var(--line)}
+.tl small{font-size:12px;font-weight:700;color:var(--mute)}
+.tl b{display:block;font-size:22px;color:var(--navy);overflow-wrap:anywhere}
+.tl span{font-size:12px;color:var(--mute)}
+.tl.main{border-color:var(--org);background:var(--org-l)}
+.tl.main small{color:var(--org-d)}
+form.cf{padding:28px;display:grid;gap:14px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg label{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:1.5px solid var(--line);border-radius:12px;font-weight:700;cursor:pointer;text-align:center}
+.seg input{accent-color:var(--navy)}
+.seg label:has(input:checked){border-color:var(--navy);background:var(--sky);color:var(--navy)}
+.fr{display:grid;gap:5px}
+.fr label{font-size:13px;font-weight:700;color:var(--navy)}
+.req{background:#d94040;color:#fff;font-size:10px;padding:1px 6px;border-radius:3px;margin-inline-start:6px;vertical-align:1px}
+.fr input,.fr select,.fr textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 14px;background:var(--bg);font-size:16px}
+.fr textarea{min-height:120px;resize:vertical}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.sellonly{display:none}
+form.is-sell .sellonly{display:grid}
+.agree{font-size:13px;display:flex;gap:8px;align-items:center}
+.sent{display:none;background:#e7f4ec;color:#1f6a3d;padding:14px;border-radius:10px;font-size:14px}
+
+/* footer */
+footer{background:#121e30;color:#a7b2c2;font-size:13px;padding:56px 0 24px}
+.ft{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.ft .logo-txt strong{color:#fff}.ft .logo-txt small{color:#8592a6}
+.ft h4{color:#fff;font-size:14px;margin-bottom:10px}
+.ft ul{list-style:none;display:grid;gap:6px}
+.ft a:hover{color:#fff}
+.ft-lic{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;display:grid;gap:4px}
+.copy{margin-top:20px;font-size:12px;text-align:center;color:#7d899c}
+.fixbar{display:none}
+
+@media (max-width:1080px){
+  .hd-tel,.hsearch,.hd-cta{display:none}
+  .burger{display:block}
+  .pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .dgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .str{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  .topbar nav{display:none}
+  .hero .wrap,.news-wrap,.sell-grid,.co,.contact{grid-template-columns:1fr}
+  .hero-pic{order:-1}
+  .hero-pic .float{inset-inline-start:12px;bottom:-20px}
+  .sp-row{grid-template-columns:1fr 1fr}
+  .sp-row input,.sp-row .btn{grid-column:1/-1}
+  .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pick{grid-template-columns:1fr}
+  .ft{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  section{padding:60px 0}
+  .topbar .wrap>span{display:none}
+  .topbar .wrap{justify-content:center}
+  .hd{height:66px}
+  .logo-txt strong{font-size:16px}
+  .hero .wrap{padding-top:24px}
+  .hero-pic .ph-main{aspect-ratio:4/3}
+  .hero-cta{grid-template-columns:1fr}
+  .sp-row{grid-template-columns:1fr}
+  .pgrid{gap:12px}
+  .pc-b{padding:12px}
+  .pc-b h3{font-size:14px}
+  .price b{font-size:15px}
+  .cgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .str,.ways,.flow,.f2,.f3{grid-template-columns:1fr}
+  .news li{grid-template-columns:86px auto;gap:4px 10px;justify-content:start}
+  .news li a{grid-column:1/-1}
+  table.ct th{width:96px;padding:12px}
+  table.ct td{padding:12px}
+  .ft{grid-template-columns:1fr}
+  body{padding-bottom:60px}
+  .fixbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;inset-inline:0;bottom:0;z-index:60;box-shadow:0 -4px 16px rgba(0,0,0,.1)}
+  .fixbar a{display:flex;align-items:center;justify-content:center;height:60px;color:#fff;font-weight:700;font-size:15px}
+  .fixbar a:first-child{background:var(--navy)}.fixbar a:last-child{background:var(--org)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 120 100">
+    <path d="M47 8h26l42 72-13 14H18L5 80z" fill="none" stroke="#e8612c" stroke-width="9" stroke-linejoin="miter"/>
+    <path d="M60 28 L92 82 H28 Z" fill="#e8612c"/>
+    <path d="M60 50 L74 74 H46 Z" fill="#fff"/>
+    <path d="M60 62 h20 v12 h-12z" fill="#e8612c"/>
+  </symbol>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>中古医療機器の販売・買取｜全国対応</span>
+    <div class="tb-r">
+      <nav><a href="#guide">はじめての方へ</a><a href="#flow">ご利用の流れ</a><a href="#contact">お問い合わせ</a><a href="#member">会員登録</a></nav>
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="ja">日本語</button><button data-lang="en">English</button><button data-lang="zh-CN">中文</button><button data-lang="ar">العربية</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap hd">
+    <a href="#top" class="logo">
+      <svg><use href="#logo"/></svg>
+      <span class="logo-txt"><strong>株式会社A&amp;G企画</strong><small>A&amp;G PLANNING CO.,LTD</small></span>
+    </a>
+    <form class="hsearch" id="hsearch" role="search">
+      <input id="hkey" type="search" placeholder="機器名・メーカーで検索" aria-label="キーワード検索">
+      <button aria-label="検索"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+    </form>
+    <div class="hd-tel"><small>お電話でのご相談</small><b class="ltr">047-110-1065</b></div>
+    <div class="hd-cta"><a href="#contact" class="btn btn-org btn-sm">無料査定</a></div>
+    <button class="burger" id="burger" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+  <nav class="catbar">
+    <ul class="wrap">
+      <li><a href="#products" data-st="">商品一覧</a></li>
+      <li><a href="#products" data-st="新着">新着入荷</a></li>
+      <li><a href="#products" data-st="新品・未使用">新品・未使用</a></li>
+      <li><a href="#products" data-st="入荷予定">入荷予定</a></li>
+      <li><a href="#category" data-tab="kind">機器から探す</a></li>
+      <li><a href="#category" data-tab="dept">診療科から探す</a></li>
+      <li><a href="#strength">選ばれる理由</a></li>
+      <li class="s"><a href="#sell">医療機器を売りたい</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="drawer" id="drawer">
+  <div class="drawer-in">
+    <button class="x" id="dclose" aria-label="閉じる">×</button>
+    <div class="lang" role="group" aria-label="Language">
+      <button data-lang="ja">日本語</button><button data-lang="en">English</button><button data-lang="zh-CN">中文</button><button data-lang="ar">العربية</button>
+    </div>
+    <h4>買いたい</h4>
+    <a class="dl" href="#products">商品一覧・新着入荷</a>
+    <a class="dl" href="#category">機器・診療科から探す</a>
+    <a class="dl" href="#flow">ご利用の流れ</a>
+    <h4>売りたい</h4>
+    <a class="dl" href="#sell">買取・無料査定</a>
+    <h4>A&amp;G企画について</h4>
+    <a class="dl" href="#strength">選ばれる理由</a>
+    <a class="dl" href="#company">会社概要</a>
+    <a class="dl" href="#contact">お問い合わせ</a>
+    <div class="dtel">
+      <a href="tel:0471101065" class="btn btn-navy"><span>電話する</span> <span class="ltr">047-110-1065</span></a>
+      <a href="#contact" class="btn btn-org">無料査定</a>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="hero-tags"><span>点検・清掃済み</span><span>保証付き</span><span>全国対応</span></div>
+      <h1><span>中古医療機器の</span><span><em>販売・買取</em>は</span><span>A&amp;G企画へ。</span></h1>
+      <p class="lead">超音波診断装置からCT・MRIまで。点検・清掃を済ませた中古医療機器の販売と、閉院・移転・入れ替えに伴う買取を全国で承っています。</p>
+      <div class="hero-cta">
+        <a href="#products" class="bigbtn buy">
+          <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H6"/></svg></span>
+          <span><small>中古機器を探す</small><b>買いたい</b></span>
+        </a>
+        <a href="#sell" class="bigbtn sell">
+          <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+          <span><small>無料査定はこちら</small><b>売りたい</b></span>
+        </a>
+      </div>
+      <div class="badges"><div><i>✓</i>見積り無料</div><div><i>✓</i>搬出・据付対応</div><div><i>✓</i>開業支援</div></div>
+    </div>
+    <div class="hero-pic">
+      <div class="ph-main"><img src="https://images.pexels.com/photos/13176358/pexels-photo-13176358.jpeg?auto=compress&cs=tinysrgb&w=990&h=900&fit=crop" alt="CT装置が置かれた検査室" fetchpriority="high"></div>
+      <span class="stamp">点検済み</span>
+      <div class="float"><img src="https://images.pexels.com/photos/7108390/pexels-photo-7108390.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop" alt=""><div><b>新着入荷</b><small>超音波診断装置</small></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="search">
+  <div class="wrap">
+    <form class="sp" id="sp">
+      <div class="sp-tabs" id="spTabs">
+        <button type="button" class="pill on" data-st="">すべて</button>
+        <button type="button" class="pill" data-st="新着">新着入荷</button>
+        <button type="button" class="pill" data-st="新品・未使用">新品・未使用</button>
+        <button type="button" class="pill" data-st="入荷予定">入荷予定</button>
+      </div>
+      <div class="sp-row">
+        <select id="fCat" aria-label="機器カテゴリ"></select>
+        <select id="fDept" aria-label="診療科"></select>
+        <select id="fMaker" aria-label="メーカー"></select>
+        <input id="fKey" type="search" placeholder="キーワード（例：超音波）" aria-label="キーワード">
+        <button class="btn btn-navy" type="submit">検索する</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<section>
+  <div class="wrap news-wrap">
+    <div>
+      <div class="sh"><h2>お知らせ</h2></div>
+      <div class="card news"><ul>
+        <li><time>2026.11.26</time><span class="tag t-info">お知らせ</span><a href="#">ホームページを公開しました。</a></li>
+        <li><time>2026.11.26</time><span class="tag t-sell">買取</span><a href="#sell">閉院・移転・機器入れ替えに伴う買取のご相談を受け付けています。</a></li>
+        <li><time>2026.11.26</time><span class="tag t-new">入荷</span><a href="#products">新着入荷の商品を掲載しました。</a></li>
+      </ul></div>
+    </div>
+    <div class="card member" id="member">
+      <h3>無料会員登録で、もっと便利に</h3>
+      <p>医療機関・販売店さま向けの会員サービスです。</p>
+      <ul><li>会員限定価格の閲覧</li><li>新着入荷のメールお知らせ</li><li>お探しの機器の入荷予約</li></ul>
+      <a href="#contact" class="btn">無料で会員登録する</a>
+    </div>
+  </div>
+</section>
+
+<section id="products" class="soft">
+  <div class="wrap">
+    <div class="sh"><div><h2 id="pTitle"></h2><p>点検・清掃済みの中古医療機器を随時入荷しています。</p></div><a class="more" href="#products" id="showAll">すべての商品を見る</a></div>
+    <div class="chips" id="chips"></div>
+    <div class="pgrid" id="pgrid"></div>
+    <div class="empty" id="empty"><span>条件に合う商品が見つかりませんでした。</span><br><a href="#contact" style="color:var(--org-d);font-weight:700">在庫にない機器もお探しします。お問い合わせください。</a></div>
+    <p class="note">※掲載中の商品・価格は表示見本です。写真はイメージです。</p>
+  </div>
+</section>
+
+<section id="category">
+  <div class="wrap">
+    <div class="sh"><div><h2>カテゴリから探す</h2><p>機器の種類、または診療科からお探しいただけます。</p></div></div>
+    <div class="tabs" id="catTabs"><button class="on" data-tab="kind">機器から探す</button><button data-tab="dept">診療科から探す</button></div>
+    <div id="cbox"></div>
+  </div>
+</section>
+
+<section id="strength" class="soft">
+  <div class="wrap">
+    <div class="sh"><div><h2>A&amp;G企画が選ばれる理由</h2><p>中古だからこそ、品質と対応にこだわっています。</p></div></div>
+    <div class="str">
+      <div class="card sc"><div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div><h3>点検・清掃してお届け</h3><p>入荷した機器は動作確認と清掃を行い、状態をご確認いただいたうえでお届けします。</p></div>
+      <div class="card sc"><div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>購入後も安心の保証</h3><p>販売機器には保証をお付けしています。期間・内容は機器ごとにご案内します。</p></div>
+      <div class="card sc"><div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="7" width="15" height="11" rx="1"/><path d="M16 10h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/></svg></div><h3>全国へ搬出・据付</h3><p>小型機器から大型装置まで、搬出・配送・据付をまとめて手配します。</p></div>
+      <div class="card sc"><div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/><circle cx="12" cy="12" r="10"/></svg></div><h3>海外のお客さまにも対応</h3><p>英語・中国語・アラビア語でのお問い合わせも承ります。輸出のご相談もお気軽に。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sell" class="sellsec">
+  <div class="wrap">
+    <div class="sh"><div><h2>医療機器の買取・無料査定</h2><p>使わなくなった医療機器、まずは査定額を確かめてみませんか。</p></div></div>
+    <div class="sell-grid">
+      <div>
+        <div class="ways">
+          <div class="way"><small>電話で査定</small><b class="ltr">047-110-1065</b><p>機器名と型番をお伝えください</p></div>
+          <div class="way"><small>Webで査定</small><b>24時間受付</b><p>写真を添えて送るだけ</p></div>
+          <div class="way"><small>メールで査定</small><b class="ltr" style="font-size:16px">agplanning@outlook.com</b><p>写真と機器の情報をお送りください</p></div>
+          <div class="way"><small>出張査定</small><b>全国対応</b><p>大型装置は現地で確認します</p></div>
+        </div>
+        <div class="sell-cta">
+          <a href="#contact" class="btn btn-org" data-mode="sell">無料査定を申し込む</a>
+          <a href="#flow" class="btn ghost" data-flow="sell">買取の流れを見る</a>
+        </div>
+      </div>
+      <div class="cases">
+        <h3>こんなときにご相談ください</h3>
+        <ul>
+          <li><i>1</i><div><b>閉院・廃業</b><span>機器の一括買取から搬出まで、まとめて対応します。</span></div></li>
+          <li><i>2</i><div><b>移転・リニューアル</b><span>移転先で使わない機器を買い取り、費用負担を軽くします。</span></div></li>
+          <li><i>3</i><div><b>機器の入れ替え</b><span>新しい機器の購入と合わせた下取りもご相談ください。</span></div></li>
+          <li><i>4</i><div><b>使っていない機器の整理</b><span>年式が古い機器や動作未確認の機器も、まずはご相談ください。</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap">
+    <div class="sh"><div><h2>ご利用の流れ</h2><p>はじめての方にも、担当者がていねいにご案内します。</p></div></div>
+    <div class="tabs" id="flowTabs"><button class="on" data-f="buy">購入の流れ</button><button data-f="sell">買取の流れ</button></div>
+    <ol class="flow" id="flowList"></ol>
+  </div>
+</section>
+
+<section id="guide" class="soft">
+  <div class="wrap">
+    <div class="sh"><div><h2>ピックアップ</h2></div></div>
+    <div class="pick">
+      <a href="#contact" class="card pk"><img src="https://images.pexels.com/photos/30902075/pexels-photo-30902075.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop" alt="" loading="lazy"><div class="pk-b"><h3>クリニック開業支援</h3><p>必要な機器のリストアップから見積り、搬入・据付まで、開業準備をまとめてお手伝いします。</p></div></a>
+      <a href="#strength" class="card pk"><img src="https://images.pexels.com/photos/6749702/pexels-photo-6749702.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop" alt="" loading="lazy"><div class="pk-b"><h3>はじめて中古機器を選ぶ方へ</h3><p>年式・使用状況・保守部品の有無など、中古機器を選ぶときに確認したいポイントをご案内します。</p></div></a>
+      <a href="#contact" class="card pk"><img src="https://images.pexels.com/photos/7089625/pexels-photo-7089625.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop" alt="" loading="lazy"><div class="pk-b"><h3>入荷予約サービス</h3><p>在庫にない機器もご希望をお聞きし、入荷しだい優先してご連絡します。</p></div></a>
+    </div>
+  </div>
+</section>
+
+<section id="company">
+  <div class="wrap">
+    <div class="sh"><div><h2>会社概要</h2></div></div>
+    <div class="co">
+      <table class="ct">
+        <tr><th>会社名</th><td>株式会社A&amp;G企画<br><span class="ltr">A&amp;G PLANNING CO.,LTD</span></td></tr>
+        <tr><th>代表者</th><td>代表取締役社長　有馬 剛</td></tr>
+        <tr><th>所在地</th><td>〒270-1456 千葉県柏市泉428-1</td></tr>
+        <tr><th>電話番号</th><td><span class="ltr">047-110-1065</span></td></tr>
+        <tr><th>携帯電話</th><td><span class="ltr">090-8775-7828</span></td></tr>
+        <tr><th>メール</th><td><span class="ltr">agplanning@outlook.com</span></td></tr>
+        <tr><th>事業内容</th><td>中古医療機器の販売・買取<br>医療機器の搬出・据付の手配<br>クリニック開業支援</td></tr>
+        <tr><th>対応エリア</th><td>全国・海外</td></tr>
+      </table>
+      <div class="side">
+        <div class="card lic">
+          <h3>許可・届出</h3>
+          <ul>
+            <li><b>高度管理医療機器等販売業・貸与業許可</b><span class="ph">許可番号を入力</span></li>
+            <li><b>古物商許可</b><span class="ph">千葉県公安委員会 第000000000000号</span></li>
+            <li><b>適格請求書発行事業者登録番号</b><span class="ph">T0000000000000</span></li>
+          </ul>
+        </div>
+        <div class="card mapbox">
+          <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <div><b>千葉県柏市泉428-1</b><a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%8D%83%E8%91%89%E7%9C%8C%E6%9F%8F%E5%B8%82%E6%B3%89428-1" target="_blank" rel="noopener">Googleマップで見る</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="soft">
+  <div class="wrap">
+    <div class="sh"><div><h2>お問い合わせ・無料査定</h2><p>購入のご相談、買取査定のお申し込みはこちらから。</p></div></div>
+    <div class="contact">
+      <div class="card ci-box">
+        <div class="tl main"><small>お電話でのご相談</small><b class="ltr">047-110-1065</b></div>
+        <div class="tl"><small>携帯電話</small><b class="ltr">090-8775-7828</b><span>海外から：+81-90-8775-7828</span></div>
+        <div class="tl"><small>メール</small><b class="ltr" style="font-size:18px">agplanning@outlook.com</b><span>24時間受付</span></div>
+        <p class="note" style="margin:0">医療機関・販売店さまからのお問い合わせを承っています。医療機器の購入には、販売先の要件を確認させていただく場合があります。</p>
+      </div>
+      <form class="card cf" id="cform">
+        <div class="seg">
+          <label><input type="radio" name="mode" value="buy" checked><span>購入したい</span></label>
+          <label><input type="radio" name="mode" value="sell"><span>売りたい（査定）</span></label>
+        </div>
+        <div class="f2">
+          <div class="fr"><label for="c1"><span>医療機関名・会社名</span><span class="req">必須</span></label><input id="c1" required></div>
+          <div class="fr"><label for="c2"><span>ご担当者名</span><span class="req">必須</span></label><input id="c2" required></div>
+        </div>
+        <div class="f2">
+          <div class="fr"><label for="c3"><span>メールアドレス</span><span class="req">必須</span></label><input id="c3" type="email" required></div>
+          <div class="fr"><label for="c4"><span>電話番号</span><span class="req">必須</span></label><input id="c4" type="tel" required></div>
+        </div>
+        <div class="f3">
+          <div class="fr"><label for="c5">機器名</label><input id="c5" placeholder="例：超音波診断装置"></div>
+          <div class="fr"><label for="c6">メーカー</label><input id="c6"></div>
+          <div class="fr"><label for="c7">型番・年式</label><input id="c7"></div>
+        </div>
+        <div class="fr sellonly"><label for="c8">機器の写真（査定用・任意）</label><input id="c8" type="file" accept="image/*" multiple></div>
+        <div class="fr"><label for="c9"><span>お問い合わせ内容</span><span class="req">必須</span></label><textarea id="c9" required placeholder="ご希望の機器、台数、設置場所、ご予算などをご記入ください"></textarea></div>
+        <label class="agree"><input type="checkbox" required><span>個人情報の取り扱いに同意する</span></label>
+        <button class="btn btn-navy" type="submit" style="justify-self:start" id="csubmit">送信する</button>
+        <div class="sent" id="sent">お問い合わせありがとうございます。担当者より折り返しご連絡いたします。（表示見本：実際には送信されていません）</div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <div class="logo"><svg><use href="#logo"/></svg><span class="logo-txt"><strong>株式会社A&amp;G企画</strong><small>A&amp;G PLANNING CO.,LTD</small></span></div>
+        <p style="margin-top:14px"><span>〒270-1456 千葉県柏市泉428-1</span><br><span class="ltr">TEL 047-110-1065</span><br><span class="ltr">agplanning@outlook.com</span></p>
+      </div>
+      <div><h4>買いたい</h4><ul><li><a href="#products">商品一覧</a></li><li><a href="#category">カテゴリから探す</a></li><li><a href="#flow">ご利用の流れ</a></li></ul></div>
+      <div><h4>売りたい</h4><ul><li><a href="#sell">買取・無料査定</a></li><li><a href="#contact">査定のお申し込み</a></li></ul></div>
+      <div><h4>ご利用案内</h4><ul><li><a href="#company">会社概要</a></li><li><a href="#">保証について</a></li><li><a href="#">特定商取引法に基づく表記</a></li><li><a href="#">プライバシーポリシー</a></li></ul></div>
+    </div>
+    <div class="ft-lic">
+      <span><span>高度管理医療機器等販売業・貸与業許可</span>：<span class="ph">許可番号を入力</span></span>
+      <span><span>古物商許可</span>：<span class="ph">千葉県公安委員会 第000000000000号</span></span>
+    </div>
+    <p class="copy ltr" style="display:block">© 2026 A&amp;G PLANNING CO.,LTD</p>
+  </div>
+</footer>
+
+<div class="fixbar"><a href="#products">買いたい</a><a href="#sell">売りたい</a></div>
+
+<script>
+{
+const PH={"10987487": "https://images.pexels.com/photos/10987487/pexels-photo-10987487.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "13176358": "https://images.pexels.com/photos/13176358/pexels-photo-13176358.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "263194": "https://images.pexels.com/photos/263194/pexels-photo-263194.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "30902075": "https://images.pexels.com/photos/30902075/pexels-photo-30902075.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "4966406": "https://images.pexels.com/photos/4966406/pexels-photo-4966406.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "5752241": "https://images.pexels.com/photos/5752241/pexels-photo-5752241.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "5996596": "https://images.pexels.com/photos/5996596/pexels-photo-5996596.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "6749702": "https://images.pexels.com/photos/6749702/pexels-photo-6749702.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "6809634": "https://images.pexels.com/photos/6809634/pexels-photo-6809634.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "6812453": "https://images.pexels.com/photos/6812453/pexels-photo-6812453.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "7089013": "https://images.pexels.com/photos/7089013/pexels-photo-7089013.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "7089288": "https://images.pexels.com/photos/7089288/pexels-photo-7089288.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "7089625": "https://images.pexels.com/photos/7089625/pexels-photo-7089625.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "7108118": "https://images.pexels.com/photos/7108118/pexels-photo-7108118.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "7108390": "https://images.pexels.com/photos/7108390/pexels-photo-7108390.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "7617601": "https://images.pexels.com/photos/7617601/pexels-photo-7617601.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "9574519": "https://images.pexels.com/photos/9574519/pexels-photo-9574519.jpeg?auto=compress&cs=tinysrgb&w=640&h=480&fit=crop", "hero": "https://images.pexels.com/photos/13176358/pexels-photo-13176358.jpeg?auto=compress&cs=tinysrgb&w=990&h=900&fit=crop"};
+const I18N={"en": {"A&G企画｜中古医療機器の販売・買取": "A&G Planning | Used Medical Equipment Sales & Buyback", "中古医療機器の販売・買取｜全国対応": "Used medical equipment sales & buyback | Nationwide service", "はじめての方へ": "First-time visitors", "ご利用の流れ": "How it works", "お問い合わせ": "Contact", "会員登録": "Sign up", "株式会社A&G企画": "A&G Planning Co., Ltd.", "キーワード検索": "Keyword search", "機器名・メーカーで検索": "Search by equipment or maker", "検索": "Search", "お電話でのご相談": "Call us", "無料査定": "Free appraisal", "メニュー": "Menu", "商品一覧": "All products", "新着入荷": "New arrivals", "新品・未使用": "New / unused", "入荷予定": "Coming soon", "機器から探す": "By equipment", "診療科から探す": "By specialty", "選ばれる理由": "Why choose us", "医療機器を売りたい": "Sell your equipment", "閉じる": "Close", "買いたい": "Buy", "商品一覧・新着入荷": "Products & new arrivals", "機器・診療科から探す": "Search by equipment or specialty", "売りたい": "Sell", "買取・無料査定": "Buyback & free appraisal", "A&G企画について": "About A&G Planning", "会社概要": "Company profile", "電話する": "Call", "点検・清掃済み": "Inspected & cleaned", "保証付き": "With warranty", "全国対応": "Nationwide", "中古医療機器の": "Used medical equipment", "販売・買取": "sales & buyback", "は": "", "A&G企画へ。": "by A&G Planning.", "超音波診断装置からCT・MRIまで。点検・清掃を済ませた中古医療機器の販売と、閉院・移転・入れ替えに伴う買取を全国で承っています。": "From ultrasound systems to CT and MRI. We sell inspected and cleaned used medical equipment, and buy equipment from clinics that are closing, relocating or upgrading — anywhere in Japan.", "中古機器を探す": "Find used equipment", "無料査定はこちら": "Get a free appraisal", "見積り無料": "Free quotes", "搬出・据付対応": "Removal & installation", "開業支援": "Clinic opening support", "CT装置が置かれた検査室": "Examination room with a CT scanner", "点検済み": "Inspected", "超音波診断装置": "Ultrasound systems", "すべて": "All", "機器カテゴリ": "Equipment category", "診療科": "Specialty", "メーカー": "Maker", "キーワード": "Keyword", "キーワード（例：超音波）": "Keyword (e.g. ultrasound)", "検索する": "Search", "お知らせ": "News", "ホームページを公開しました。": "Our website is now live.", "買取": "Buyback", "閉院・移転・機器入れ替えに伴う買取のご相談を受け付けています。": "We buy equipment from clinics that are closing, relocating or upgrading.", "入荷": "Arrivals", "新着入荷の商品を掲載しました。": "New arrivals have been added.", "無料会員登録で、もっと便利に": "Free membership makes it easier", "医療機関・販売店さま向けの会員サービスです。": "A members' service for medical institutions and dealers.", "会員限定価格の閲覧": "Members-only prices", "新着入荷のメールお知らせ": "Email alerts for new arrivals", "お探しの機器の入荷予約": "Reserve equipment you're looking for", "無料で会員登録する": "Sign up free", "点検・清掃済みの中古医療機器を随時入荷しています。": "Inspected and cleaned used equipment arrives regularly.", "すべての商品を見る": "View all products", "条件に合う商品が見つかりませんでした。": "No products match your search.", "在庫にない機器もお探しします。お問い合わせください。": "We can source equipment that's not in stock — contact us.", "※掲載中の商品・価格は表示見本です。写真はイメージです。": "* Listed products and prices are samples. Photos are for illustration.", "カテゴリから探す": "Browse by category", "機器の種類、または診療科からお探しいただけます。": "Search by type of equipment or by medical specialty.", "A&G企画が選ばれる理由": "Why choose A&G Planning", "中古だからこそ、品質と対応にこだわっています。": "Because it's used equipment, we take quality and service seriously.", "点検・清掃してお届け": "Inspected and cleaned", "入荷した機器は動作確認と清掃を行い、状態をご確認いただいたうえでお届けします。": "Every unit is function-checked and cleaned, and we confirm its condition with you before delivery.", "購入後も安心の保証": "Warranty after purchase", "販売機器には保証をお付けしています。期間・内容は機器ごとにご案内します。": "Equipment comes with a warranty. Terms vary by item and are explained per unit.", "全国へ搬出・据付": "Removal & installation nationwide", "小型機器から大型装置まで、搬出・配送・据付をまとめて手配します。": "From small devices to large systems, we arrange removal, delivery and installation.", "海外のお客さまにも対応": "Overseas customers welcome", "英語・中国語・アラビア語でのお問い合わせも承ります。輸出のご相談もお気軽に。": "Inquiries in English, Chinese and Arabic are welcome. Ask us about export.", "医療機器の買取・無料査定": "Equipment buyback & free appraisal", "使わなくなった医療機器、まずは査定額を確かめてみませんか。": "Have equipment you no longer use? Find out what it's worth.", "電話で査定": "By phone", "機器名と型番をお伝えください": "Tell us the name and model", "Webで査定": "Online", "24時間受付": "24 hours a day", "写真を添えて送るだけ": "Just send photos", "メールで査定": "By email", "写真と機器の情報をお送りください": "Send photos and equipment details", "出張査定": "On-site appraisal", "大型装置は現地で確認します": "We inspect large systems on site", "無料査定を申し込む": "Request a free appraisal", "買取の流れを見る": "How buyback works", "こんなときにご相談ください": "Talk to us when you are…", "閉院・廃業": "Closing a clinic", "機器の一括買取から搬出まで、まとめて対応します。": "We buy all equipment at once and handle removal.", "移転・リニューアル": "Relocating or renovating", "移転先で使わない機器を買い取り、費用負担を軽くします。": "We buy what you won't use at the new site to lower your costs.", "機器の入れ替え": "Upgrading equipment", "新しい機器の購入と合わせた下取りもご相談ください。": "Ask about trade-ins when buying new equipment.", "使っていない機器の整理": "Clearing unused equipment", "年式が古い機器や動作未確認の機器も、まずはご相談ください。": "Older units or untested equipment — ask us first.", "はじめての方にも、担当者がていねいにご案内します。": "Our staff will guide you step by step.", "購入の流れ": "Buying", "買取の流れ": "Selling", "お見積り": "Quotation", "電話・フォーム・メールで、気になる機器をお知らせください。": "Tell us which equipment you need by phone, form or email.", "機器の状態、保証、搬入・据付の費用を含めてお見積りします。": "We quote including condition, warranty, delivery and installation.", "ご契約": "Contract", "内容にご納得いただけましたら、ご注文・ご契約となります。": "Once you're satisfied, we finalize the order.", "搬入・据付": "Delivery & installation", "ご指定の日時に配送し、設置まで行います。": "We deliver on your chosen date and install it.", "アフターサポート": "After-sales support", "保証期間中の不具合や、使い方のご相談に対応します。": "We handle faults under warranty and questions about use.", "査定のお申し込み": "Request appraisal", "電話・Web・メールで、機器名や写真をお送りください。": "Send the equipment name and photos by phone, web or email.", "査定額のご提示": "Appraisal offer", "内容を確認し、査定額をご連絡します。現地確認を行う場合もあります。": "We review and send our offer. Some items need an on-site check.", "ご成約": "Agreement", "査定額にご納得いただけましたら、ご契約となります。": "If you accept the offer, we sign the agreement.", "搬出": "Removal", "日程を調整し、機器を搬出します。大型装置もご相談ください。": "We schedule and remove the equipment, large systems included.", "お支払い": "Payment", "搬出・検品後、指定の口座へお振り込みします。": "After removal and inspection, we pay by bank transfer.", "ピックアップ": "Featured", "クリニック開業支援": "Clinic opening support", "必要な機器のリストアップから見積り、搬入・据付まで、開業準備をまとめてお手伝いします。": "From listing what you need to quotes, delivery and installation, we help you prepare to open.", "はじめて中古機器を選ぶ方へ": "Buying used for the first time", "年式・使用状況・保守部品の有無など、中古機器を選ぶときに確認したいポイントをご案内します。": "What to check when choosing used equipment: year, usage, spare-parts availability and more.", "入荷予約サービス": "Reservation service", "在庫にない機器もご希望をお聞きし、入荷しだい優先してご連絡します。": "Tell us what you need; we'll contact you first when it arrives.", "会社名": "Company", "代表者": "Representative", "代表取締役社長　有馬 剛": "President & CEO: Go Arima", "所在地": "Address", "〒270-1456 千葉県柏市泉428-1": "428-1 Izumi, Kashiwa, Chiba 270-1456, Japan", "電話番号": "Phone", "携帯電話": "Mobile", "メール": "Email", "事業内容": "Business", "中古医療機器の販売・買取": "Sales & buyback of used medical equipment", "医療機器の搬出・据付の手配": "Equipment removal & installation", "対応エリア": "Service area", "全国・海外": "All of Japan & overseas", "許可・届出": "Licenses", "高度管理医療機器等販売業・貸与業許可": "License for sale & rental of highly controlled medical devices", "許可番号を入力": "License no. (to be added)", "古物商許可": "Secondhand dealer license", "千葉県公安委員会 第000000000000号": "Chiba Prefectural Public Safety Commission No. 000000000000", "適格請求書発行事業者登録番号": "Qualified invoice issuer no.", "千葉県柏市泉428-1": "428-1 Izumi, Kashiwa, Chiba", "Googleマップで見る": "View on Google Maps", "お問い合わせ・無料査定": "Contact & free appraisal", "購入のご相談、買取査定のお申し込みはこちらから。": "Ask about purchases or request a buyback appraisal here.", "海外から：+81-90-8775-7828": "From overseas: +81-90-8775-7828", "医療機関・販売店さまからのお問い合わせを承っています。医療機器の購入には、販売先の要件を確認させていただく場合があります。": "We serve medical institutions and dealers. For some equipment we may need to confirm the buyer's eligibility.", "購入したい": "I want to buy", "売りたい（査定）": "I want to sell (appraisal)", "医療機関名・会社名": "Institution / company", "必須": "Required", "ご担当者名": "Your name", "メールアドレス": "Email", "機器名": "Equipment", "例：超音波診断装置": "e.g. ultrasound system", "型番・年式": "Model / year", "機器の写真（査定用・任意）": "Equipment photos (for appraisal, optional)", "お問い合わせ内容": "Message", "ご希望の機器、台数、設置場所、ご予算などをご記入ください": "Equipment, quantity, location, budget, etc.", "個人情報の取り扱いに同意する": "I agree to the privacy policy", "送信する": "Send", "お問い合わせありがとうございます。担当者より折り返しご連絡いたします。（表示見本：実際には送信されていません）": "Thank you. We'll get back to you shortly. (Demo: nothing was actually sent.)", "ご利用案内": "Information", "保証について": "Warranty", "特定商取引法に基づく表記": "Commercial transactions notice", "プライバシーポリシー": "Privacy policy", "CT・MRI": "CT / MRI", "X線装置": "X-ray systems", "手術室機器": "Operating room", "生体情報モニタ": "Patient monitors", "心電計": "ECG", "眼科機器": "Ophthalmology", "歯科機器": "Dental", "検査・分析機器": "Laboratory analyzers", "病院用ベッド": "Hospital beds", "内科": "Internal medicine", "外科": "Surgery", "整形外科": "Orthopedics", "眼科": "Ophthalmology", "産婦人科": "Obstetrics & gynecology", "消化器内科": "Gastroenterology", "循環器内科": "Cardiology", "歯科": "Dentistry", "放射線科": "Radiology", "健診・検査": "Health checkups & labs", "病院・病棟": "Hospital wards", "動物病院": "Veterinary", "超音波診断装置 汎用タイプ": "General-purpose ultrasound system", "MRI装置 1.5T": "MRI system 1.5T", "一般撮影用X線装置": "General radiography X-ray system", "電動手術台": "Electric operating table", "生体情報モニタ ベッドサイド型": "Bedside patient monitor", "12誘導 心電計": "12-lead ECG", "オートレフケラトメータ": "Auto refractor-keratometer", "歯科用チェアユニット": "Dental chair unit", "臨床検査用 自動分析装置": "Clinical automated analyzer", "電動ケアベッド": "Electric care bed", "ポータブル超音波診断装置": "Portable ultrasound system", "CT装置 16列": "CT scanner, 16-slice", "キヤノン": "Canon", "シーメンス": "Siemens", "島津製作所": "Shimadzu", "日本光電": "Nihon Kohden", "フクダ電子": "Fukuda Denshi", "トプコン": "Topcon", "パラマウントベッド": "Paramount Bed", "その他": "Other", "GE": "GE", "新着": "New", "商談中": "Under negotiation", "年式": "Year", "税別": "excl. tax", "価格はお問い合わせ": "Price on request", "会員価格あり": "Member price available", "検索結果": "Search results", "新着入荷・商品一覧": "New arrivals & products", "状態": "Status", "機器": "Equipment", "条件をクリア": "Clear filters"}, "zh-CN": {"A&G企画｜中古医療機器の販売・買取": "A&G企画｜二手医疗设备销售与回收", "中古医療機器の販売・買取｜全国対応": "二手医疗设备销售与回收｜全国服务", "はじめての方へ": "初次使用指南", "ご利用の流れ": "服务流程", "お問い合わせ": "联系我们", "会員登録": "会员注册", "株式会社A&G企画": "A&G企画株式会社", "キーワード検索": "关键词搜索", "機器名・メーカーで検索": "按设备名称或厂家搜索", "検索": "搜索", "お電話でのご相談": "电话咨询", "無料査定": "免费估价", "メニュー": "菜单", "商品一覧": "商品一览", "新着入荷": "新到货", "新品・未使用": "全新·未使用", "入荷予定": "即将到货", "機器から探す": "按设备查找", "診療科から探す": "按科室查找", "選ばれる理由": "选择我们的理由", "医療機器を売りたい": "出售医疗设备", "閉じる": "关闭", "買いたい": "我要购买", "商品一覧・新着入荷": "商品一览·新到货", "機器・診療科から探す": "按设备·科室查找", "売りたい": "我要出售", "買取・無料査定": "回收·免费估价", "A&G企画について": "关于A&G企画", "会社概要": "公司概况", "電話する": "拨打电话", "点検・清掃済み": "已检测·已清洁", "保証付き": "附保修", "全国対応": "全国服务", "中古医療機器の": "二手医疗设备的", "販売・買取": "销售·回收", "は": "", "A&G企画へ。": "就找A&G企画。", "超音波診断装置からCT・MRIまで。点検・清掃を済ませた中古医療機器の販売と、閉院・移転・入れ替えに伴う買取を全国で承っています。": "从超声诊断设备到CT·MRI。我们销售经过检测和清洁的二手医疗设备，并在全国范围内回收因闭院、搬迁或设备更新而闲置的设备。", "中古機器を探す": "查找二手设备", "無料査定はこちら": "免费估价", "見積り無料": "免费报价", "搬出・据付対応": "搬运·安装", "開業支援": "开业支持", "CT装置が置かれた検査室": "放置CT设备的检查室", "点検済み": "已检测", "超音波診断装置": "超声诊断设备", "すべて": "全部", "機器カテゴリ": "设备类别", "診療科": "科室", "メーカー": "厂家", "キーワード": "关键词", "キーワード（例：超音波）": "关键词（例：超声）", "検索する": "搜索", "お知らせ": "公告", "ホームページを公開しました。": "官方网站正式上线。", "買取": "回收", "閉院・移転・機器入れ替えに伴う買取のご相談を受け付けています。": "受理因闭院、搬迁或设备更新而产生的回收咨询。", "入荷": "到货", "新着入荷の商品を掲載しました。": "已上架新到货商品。", "無料会員登録で、もっと便利に": "免费注册会员，更加便捷", "医療機関・販売店さま向けの会員サービスです。": "面向医疗机构和经销商的会员服务。", "会員限定価格の閲覧": "查看会员专享价格", "新着入荷のメールお知らせ": "新到货邮件通知", "お探しの機器の入荷予約": "预约您需要的设备", "無料で会員登録する": "免费注册会员", "点検・清掃済みの中古医療機器を随時入荷しています。": "经过检测和清洁的二手医疗设备随时到货。", "すべての商品を見る": "查看全部商品", "条件に合う商品が見つかりませんでした。": "没有找到符合条件的商品。", "在庫にない機器もお探しします。お問い合わせください。": "库存中没有的设备也可以帮您寻找，请联系我们。", "※掲載中の商品・価格は表示見本です。写真はイメージです。": "※所列商品及价格仅为示例，图片仅供参考。", "カテゴリから探す": "按类别查找", "機器の種類、または診療科からお探しいただけます。": "可按设备种类或科室查找。", "A&G企画が選ばれる理由": "选择A&G企画的理由", "中古だからこそ、品質と対応にこだわっています。": "正因为是二手设备，我们更注重品质与服务。", "点検・清掃してお届け": "检测清洁后交付", "入荷した機器は動作確認と清掃を行い、状態をご確認いただいたうえでお届けします。": "到货设备均经过运行检测和清洁，并在您确认状态后交付。", "購入後も安心の保証": "购买后安心保修", "販売機器には保証をお付けしています。期間・内容は機器ごとにご案内します。": "售出设备均附保修，期限和内容因设备而异，将逐一说明。", "全国へ搬出・据付": "全国搬运·安装", "小型機器から大型装置まで、搬出・配送・据付をまとめて手配します。": "从小型设备到大型装置，统一安排搬出、配送和安装。", "海外のお客さまにも対応": "欢迎海外客户", "英語・中国語・アラビア語でのお問い合わせも承ります。輸出のご相談もお気軽に。": "可使用英语、中文、阿拉伯语咨询，欢迎洽谈出口业务。", "医療機器の買取・無料査定": "医疗设备回收·免费估价", "使わなくなった医療機器、まずは査定額を確かめてみませんか。": "闲置的医疗设备，先来看看估价吧。", "電話で査定": "电话估价", "機器名と型番をお伝えください": "请告知设备名称和型号", "Webで査定": "网上估价", "24時間受付": "24小时受理", "写真を添えて送るだけ": "只需附上照片发送", "メールで査定": "邮件估价", "写真と機器の情報をお送りください": "请发送照片和设备信息", "出張査定": "上门估价", "大型装置は現地で確認します": "大型设备将现场确认", "無料査定を申し込む": "申请免费估价", "買取の流れを見る": "查看回收流程", "こんなときにご相談ください": "以下情况欢迎咨询", "閉院・廃業": "闭院·停业", "機器の一括買取から搬出まで、まとめて対応します。": "从设备整体回收到搬出，一站式处理。", "移転・リニューアル": "搬迁·翻新", "移転先で使わない機器を買い取り、費用負担を軽くします。": "回收新址不再使用的设备，减轻费用负担。", "機器の入れ替え": "设备更新", "新しい機器の購入と合わせた下取りもご相談ください。": "购买新设备时也可咨询以旧换新。", "使っていない機器の整理": "整理闲置设备", "年式が古い機器や動作未確認の機器も、まずはご相談ください。": "年份较旧或未确认运行的设备也欢迎先咨询。", "はじめての方にも、担当者がていねいにご案内します。": "即使是初次使用，负责人也会耐心为您说明。", "購入の流れ": "购买流程", "買取の流れ": "回收流程", "お見積り": "报价", "電話・フォーム・メールで、気になる機器をお知らせください。": "请通过电话、表单或邮件告知您感兴趣的设备。", "機器の状態、保証、搬入・据付の費用を含めてお見積りします。": "报价包含设备状态、保修及搬入安装费用。", "ご契約": "签约", "内容にご納得いただけましたら、ご注文・ご契約となります。": "确认内容后即可下单签约。", "搬入・据付": "搬入·安装", "ご指定の日時に配送し、設置まで行います。": "按指定时间配送并完成安装。", "アフターサポート": "售后支持", "保証期間中の不具合や、使い方のご相談に対応します。": "保修期内的故障及使用问题均可咨询。", "査定のお申し込み": "申请估价", "電話・Web・メールで、機器名や写真をお送りください。": "请通过电话、网页或邮件发送设备名称和照片。", "査定額のご提示": "提示估价", "内容を確認し、査定額をご連絡します。現地確認を行う場合もあります。": "确认内容后告知估价金额，有时需要现场确认。", "ご成約": "成交", "査定額にご納得いただけましたら、ご契約となります。": "如您认可估价，即可签约。", "搬出": "搬出", "日程を調整し、機器を搬出します。大型装置もご相談ください。": "协调日程后搬出设备，大型设备也可咨询。", "お支払い": "付款", "搬出・検品後、指定の口座へお振り込みします。": "搬出并验货后，汇款至指定账户。", "ピックアップ": "精选", "クリニック開業支援": "诊所开业支持", "必要な機器のリストアップから見積り、搬入・据付まで、開業準備をまとめてお手伝いします。": "从列出所需设备到报价、搬入和安装，全面协助开业准备。", "はじめて中古機器を選ぶ方へ": "初次选购二手设备", "年式・使用状況・保守部品の有無など、中古機器を選ぶときに確認したいポイントをご案内します。": "介绍选购二手设备时应确认的要点，如年份、使用情况、维修配件等。", "入荷予約サービス": "到货预约服务", "在庫にない機器もご希望をお聞きし、入荷しだい優先してご連絡します。": "库存中没有的设备也可登记需求，到货后优先联系您。", "会社名": "公司名称", "代表者": "代表人", "代表取締役社長　有馬 剛": "董事长兼总经理　有马 刚", "所在地": "地址", "〒270-1456 千葉県柏市泉428-1": "〒270-1456 日本千叶县柏市泉428-1", "電話番号": "电话", "携帯電話": "手机", "メール": "邮箱", "事業内容": "业务内容", "中古医療機器の販売・買取": "二手医疗设备销售与回收", "医療機器の搬出・据付の手配": "医疗设备搬运·安装安排", "対応エリア": "服务区域", "全国・海外": "日本全国·海外", "許可・届出": "许可·备案", "高度管理医療機器等販売業・貸与業許可": "高度管理医疗器械等销售业·租赁业许可", "許可番号を入力": "许可编号（待填写）", "古物商許可": "旧货商许可", "千葉県公安委員会 第000000000000号": "千叶县公安委员会 第000000000000号", "適格請求書発行事業者登録番号": "合格发票开具事业者登记编号", "千葉県柏市泉428-1": "千叶县柏市泉428-1", "Googleマップで見る": "在Google地图中查看", "お問い合わせ・無料査定": "联系我们·免费估价", "購入のご相談、買取査定のお申し込みはこちらから。": "购买咨询及回收估价申请请在此提交。", "海外から：+81-90-8775-7828": "海外拨打：+81-90-8775-7828", "医療機関・販売店さまからのお問い合わせを承っています。医療機器の購入には、販売先の要件を確認させていただく場合があります。": "我们受理医疗机构及经销商的咨询。购买医疗设备时，可能需要确认买方资质。", "購入したい": "我要购买", "売りたい（査定）": "我要出售（估价）", "医療機関名・会社名": "医疗机构·公司名称", "必須": "必填", "ご担当者名": "联系人姓名", "メールアドレス": "电子邮箱", "機器名": "设备名称", "例：超音波診断装置": "例：超声诊断设备", "型番・年式": "型号·年份", "機器の写真（査定用・任意）": "设备照片（估价用·可选）", "お問い合わせ内容": "咨询内容", "ご希望の機器、台数、設置場所、ご予算などをご記入ください": "请填写所需设备、数量、安装地点、预算等", "個人情報の取り扱いに同意する": "同意个人信息处理规定", "送信する": "提交", "お問い合わせありがとうございます。担当者より折り返しご連絡いたします。（表示見本：実際には送信されていません）": "感谢您的咨询，负责人将尽快回复您。（演示：实际未发送）", "ご利用案内": "使用指南", "保証について": "关于保修", "特定商取引法に基づく表記": "特定商业交易法标示", "プライバシーポリシー": "隐私政策", "CT・MRI": "CT·MRI", "X線装置": "X射线设备", "手術室機器": "手术室设备", "生体情報モニタ": "生命体征监护仪", "心電計": "心电图机", "眼科機器": "眼科设备", "歯科機器": "牙科设备", "検査・分析機器": "检验·分析设备", "病院用ベッド": "医用病床", "内科": "内科", "外科": "外科", "整形外科": "骨科", "眼科": "眼科", "産婦人科": "妇产科", "消化器内科": "消化内科", "循環器内科": "心内科", "歯科": "牙科", "放射線科": "放射科", "健診・検査": "体检·检验", "病院・病棟": "医院·病房", "動物病院": "动物医院", "超音波診断装置 汎用タイプ": "通用型超声诊断设备", "MRI装置 1.5T": "MRI设备 1.5T", "一般撮影用X線装置": "普通摄影X射线设备", "電動手術台": "电动手术台", "生体情報モニタ ベッドサイド型": "床旁型生命体征监护仪", "12誘導 心電計": "12导联心电图机", "オートレフケラトメータ": "全自动电脑验光角膜曲率仪", "歯科用チェアユニット": "牙科综合治疗台", "臨床検査用 自動分析装置": "临床检验全自动分析仪", "電動ケアベッド": "电动护理床", "ポータブル超音波診断装置": "便携式超声诊断设备", "CT装置 16列": "CT设备 16排", "キヤノン": "佳能", "シーメンス": "西门子", "島津製作所": "岛津", "日本光電": "日本光电", "フクダ電子": "福田电子", "トプコン": "拓普康", "パラマウントベッド": "八乐梦", "その他": "其他", "GE": "GE", "新着": "新到货", "商談中": "洽谈中", "年式": "年份", "税別": "不含税", "価格はお問い合わせ": "价格请咨询", "会員価格あり": "有会员价", "検索結果": "搜索结果", "新着入荷・商品一覧": "新到货·商品一览", "状態": "状态", "機器": "设备", "条件をクリア": "清除条件"}, "ar": {"A&G企画｜中古医療機器の販売・買取": "A&G للتخطيط | بيع وشراء المعدات الطبية المستعملة", "中古医療機器の販売・買取｜全国対応": "بيع وشراء المعدات الطبية المستعملة | خدمة في جميع أنحاء اليابان", "はじめての方へ": "للزوار الجدد", "ご利用の流れ": "كيف نعمل", "お問い合わせ": "اتصل بنا", "会員登録": "التسجيل", "株式会社A&G企画": "شركة A&G للتخطيط المحدودة", "キーワード検索": "البحث بكلمة مفتاحية", "機器名・メーカーで検索": "ابحث باسم الجهاز أو الشركة المصنعة", "検索": "بحث", "お電話でのご相談": "اتصل بنا هاتفيًا", "無料査定": "تقييم مجاني", "メニュー": "القائمة", "商品一覧": "جميع المنتجات", "新着入荷": "وصل حديثًا", "新品・未使用": "جديد / غير مستعمل", "入荷予定": "قريبًا", "機器から探す": "حسب نوع الجهاز", "診療科から探す": "حسب التخصص", "選ばれる理由": "لماذا تختارنا", "医療機器を売りたい": "بيع معداتك الطبية", "閉じる": "إغلاق", "買いたい": "شراء", "商品一覧・新着入荷": "المنتجات والوافدات الجديدة", "機器・診療科から探す": "البحث حسب الجهاز أو التخصص", "売りたい": "بيع", "買取・無料査定": "الشراء والتقييم المجاني", "A&G企画について": "عن A&G للتخطيط", "会社概要": "نبذة عن الشركة", "電話する": "اتصل", "点検・清掃済み": "تم الفحص والتنظيف", "保証付き": "مع ضمان", "全国対応": "جميع أنحاء اليابان", "中古医療機器の": "المعدات الطبية المستعملة", "販売・買取": "بيعًا وشراءً", "は": "", "A&G企画へ。": "مع A&G للتخطيط.", "超音波診断装置からCT・MRIまで。点検・清掃を済ませた中古医療機器の販売と、閉院・移転・入れ替えに伴う買取を全国で承っています。": "من أجهزة الموجات فوق الصوتية إلى الأشعة المقطعية والرنين المغناطيسي. نبيع معدات طبية مستعملة تم فحصها وتنظيفها، ونشتري المعدات من العيادات عند الإغلاق أو الانتقال أو التحديث في جميع أنحاء اليابان.", "中古機器を探す": "ابحث عن معدات مستعملة", "無料査定はこちら": "احصل على تقييم مجاني", "見積り無料": "عروض أسعار مجانية", "搬出・据付対応": "الفك والتركيب", "開業支援": "دعم افتتاح العيادات", "CT装置が置かれた検査室": "غرفة فحص بها جهاز أشعة مقطعية", "点検済み": "تم الفحص", "超音波診断装置": "أجهزة الموجات فوق الصوتية", "すべて": "الكل", "機器カテゴリ": "فئة الجهاز", "診療科": "التخصص", "メーカー": "الشركة المصنعة", "キーワード": "كلمة مفتاحية", "キーワード（例：超音波）": "كلمة مفتاحية (مثال: موجات فوق صوتية)", "検索する": "بحث", "お知らせ": "الأخبار", "ホームページを公開しました。": "تم إطلاق موقعنا الإلكتروني.", "買取": "شراء", "閉院・移転・機器入れ替えに伴う買取のご相談を受け付けています。": "نستقبل طلبات الشراء من العيادات عند الإغلاق أو الانتقال أو تحديث المعدات.", "入荷": "وصول", "新着入荷の商品を掲載しました。": "تمت إضافة منتجات جديدة.", "無料会員登録で、もっと便利に": "العضوية المجانية تجعل الأمر أسهل", "医療機関・販売店さま向けの会員サービスです。": "خدمة أعضاء للمؤسسات الطبية والموزعين.", "会員限定価格の閲覧": "أسعار خاصة بالأعضاء", "新着入荷のメールお知らせ": "تنبيهات بالبريد للوافدات الجديدة", "お探しの機器の入荷予約": "حجز المعدات التي تبحث عنها", "無料で会員登録する": "سجّل مجانًا", "点検・清掃済みの中古医療機器を随時入荷しています。": "تصلنا باستمرار معدات طبية مستعملة تم فحصها وتنظيفها.", "すべての商品を見る": "عرض جميع المنتجات", "条件に合う商品が見つかりませんでした。": "لا توجد منتجات مطابقة لبحثك.", "在庫にない機器もお探しします。お問い合わせください。": "يمكننا البحث عن معدات غير متوفرة لدينا — تواصل معنا.", "※掲載中の商品・価格は表示見本です。写真はイメージです。": "* المنتجات والأسعار المعروضة أمثلة فقط، والصور للتوضيح.", "カテゴリから探す": "تصفح حسب الفئة", "機器の種類、または診療科からお探しいただけます。": "ابحث حسب نوع الجهاز أو التخصص الطبي.", "A&G企画が選ばれる理由": "لماذا تختار A&G للتخطيط", "中古だからこそ、品質と対応にこだわっています。": "لأنها معدات مستعملة، نهتم بالجودة والخدمة.", "点検・清掃してお届け": "فحص وتنظيف قبل التسليم", "入荷した機器は動作確認と清掃を行い、状態をご確認いただいたうえでお届けします。": "نفحص كل جهاز وننظفه، ونؤكد حالته معك قبل التسليم.", "購入後も安心の保証": "ضمان بعد الشراء", "販売機器には保証をお付けしています。期間・内容は機器ごとにご案内します。": "تأتي المعدات مع ضمان، وتختلف مدته وشروطه حسب كل جهاز.", "全国へ搬出・据付": "الفك والتركيب في جميع أنحاء اليابان", "小型機器から大型装置まで、搬出・配送・据付をまとめて手配します。": "من الأجهزة الصغيرة إلى الأنظمة الكبيرة، نرتب الفك والنقل والتركيب.", "海外のお客さまにも対応": "نرحب بالعملاء من الخارج", "英語・中国語・アラビア語でのお問い合わせも承ります。輸出のご相談もお気軽に。": "نستقبل الاستفسارات بالإنجليزية والصينية والعربية. اسألنا عن التصدير.", "医療機器の買取・無料査定": "شراء المعدات الطبية والتقييم المجاني", "使わなくなった医療機器、まずは査定額を確かめてみませんか。": "هل لديك معدات لم تعد تستخدمها؟ اعرف قيمتها.", "電話で査定": "التقييم عبر الهاتف", "機器名と型番をお伝えください": "أخبرنا باسم الجهاز وطرازه", "Webで査定": "التقييم عبر الإنترنت", "24時間受付": "على مدار 24 ساعة", "写真を添えて送るだけ": "فقط أرسل الصور", "メールで査定": "التقييم عبر البريد", "写真と機器の情報をお送りください": "أرسل الصور وتفاصيل الجهاز", "出張査定": "التقييم في الموقع", "大型装置は現地で確認します": "نفحص الأنظمة الكبيرة في موقعها", "無料査定を申し込む": "اطلب تقييمًا مجانيًا", "買取の流れを見る": "كيف تتم عملية الشراء", "こんなときにご相談ください": "تواصل معنا في الحالات التالية", "閉院・廃業": "إغلاق العيادة", "機器の一括買取から搬出まで、まとめて対応します。": "نشتري جميع المعدات دفعة واحدة ونتولى الفك.", "移転・リニューアル": "الانتقال أو التجديد", "移転先で使わない機器を買い取り、費用負担を軽くします。": "نشتري ما لن تستخدمه في الموقع الجديد لتخفيف التكاليف.", "機器の入れ替え": "تحديث المعدات", "新しい機器の購入と合わせた下取りもご相談ください。": "اسأل عن الاستبدال عند شراء معدات جديدة.", "使っていない機器の整理": "التخلص من المعدات غير المستخدمة", "年式が古い機器や動作未確認の機器も、まずはご相談ください。": "حتى الأجهزة القديمة أو غير المختبرة — استشرنا أولًا.", "はじめての方にも、担当者がていねいにご案内します。": "سيرشدك فريقنا خطوة بخطوة.", "購入の流れ": "خطوات الشراء", "買取の流れ": "خطوات البيع", "お見積り": "عرض السعر", "電話・フォーム・メールで、気になる機器をお知らせください。": "أخبرنا بالمعدات التي تحتاجها عبر الهاتف أو النموذج أو البريد.", "機器の状態、保証、搬入・据付の費用を含めてお見積りします。": "نقدم عرض سعر يشمل الحالة والضمان والتوصيل والتركيب.", "ご契約": "التعاقد", "内容にご納得いただけましたら、ご注文・ご契約となります。": "بعد موافقتك، نؤكد الطلب والعقد.", "搬入・据付": "التوصيل والتركيب", "ご指定の日時に配送し、設置まで行います。": "نوصل في الموعد المحدد ونقوم بالتركيب.", "アフターサポート": "دعم ما بعد البيع", "保証期間中の不具合や、使い方のご相談に対応します。": "نتعامل مع الأعطال ضمن الضمان وأسئلة الاستخدام.", "査定のお申し込み": "طلب التقييم", "電話・Web・メールで、機器名や写真をお送りください。": "أرسل اسم الجهاز وصوره عبر الهاتف أو الموقع أو البريد.", "査定額のご提示": "عرض التقييم", "内容を確認し、査定額をご連絡します。現地確認を行う場合もあります。": "نراجع التفاصيل ونرسل عرضنا، وقد نحتاج إلى فحص في الموقع.", "ご成約": "الاتفاق", "査定額にご納得いただけましたら、ご契約となります。": "إذا قبلت العرض، نوقع الاتفاق.", "搬出": "الفك والنقل", "日程を調整し、機器を搬出します。大型装置もご相談ください。": "نحدد موعدًا ونفك المعدات، بما فيها الأنظمة الكبيرة.", "お支払い": "الدفع", "搬出・検品後、指定の口座へお振り込みします。": "بعد الفك والفحص، ندفع بتحويل بنكي.", "ピックアップ": "مميز", "クリニック開業支援": "دعم افتتاح العيادات", "必要な機器のリストアップから見積り、搬入・据付まで、開業準備をまとめてお手伝いします。": "من تحديد ما تحتاجه إلى عروض الأسعار والتوصيل والتركيب، نساعدك في التحضير للافتتاح.", "はじめて中古機器を選ぶ方へ": "لمن يشتري معدات مستعملة لأول مرة", "年式・使用状況・保守部品の有無など、中古機器を選ぶときに確認したいポイントをご案内します。": "ما يجب التحقق منه عند اختيار معدات مستعملة: سنة الصنع والاستخدام وتوفر قطع الغيار.", "入荷予約サービス": "خدمة الحجز المسبق", "在庫にない機器もご希望をお聞きし、入荷しだい優先してご連絡します。": "أخبرنا بما تحتاجه وسنتواصل معك أولًا عند وصوله.", "会社名": "اسم الشركة", "代表者": "الممثل", "代表取締役社長　有馬 剛": "الرئيس والمدير التنفيذي: غو أريما", "所在地": "العنوان", "〒270-1456 千葉県柏市泉428-1": "428-1 إيزومي، كاشيوا، تشيبا 270-1456، اليابان", "電話番号": "الهاتف", "携帯電話": "الجوال", "メール": "البريد الإلكتروني", "事業内容": "النشاط", "中古医療機器の販売・買取": "بيع وشراء المعدات الطبية المستعملة", "医療機器の搬出・据付の手配": "ترتيب فك وتركيب المعدات الطبية", "対応エリア": "نطاق الخدمة", "全国・海外": "جميع أنحاء اليابان والخارج", "許可・届出": "التراخيص", "高度管理医療機器等販売業・貸与業許可": "ترخيص بيع وتأجير الأجهزة الطبية عالية الرقابة", "許可番号を入力": "رقم الترخيص (سيضاف)", "古物商許可": "ترخيص تاجر السلع المستعملة", "千葉県公安委員会 第000000000000号": "لجنة السلامة العامة بمحافظة تشيبا رقم 000000000000", "適格請求書発行事業者登録番号": "رقم تسجيل مُصدر الفواتير المؤهل", "千葉県柏市泉428-1": "428-1 إيزومي، كاشيوا، تشيبا", "Googleマップで見る": "عرض على خرائط Google", "お問い合わせ・無料査定": "اتصل بنا والتقييم المجاني", "購入のご相談、買取査定のお申し込みはこちらから。": "استفسر عن الشراء أو اطلب تقييمًا هنا.", "海外から：+81-90-8775-7828": "من خارج اليابان: ‎+81-90-8775-7828", "医療機関・販売店さまからのお問い合わせを承っています。医療機器の購入には、販売先の要件を確認させていただく場合があります。": "نخدم المؤسسات الطبية والموزعين. قد نحتاج إلى التحقق من أهلية المشتري لبعض المعدات.", "購入したい": "أريد الشراء", "売りたい（査定）": "أريد البيع (تقييم)", "医療機関名・会社名": "اسم المؤسسة / الشركة", "必須": "مطلوب", "ご担当者名": "اسمك", "メールアドレス": "البريد الإلكتروني", "機器名": "اسم الجهاز", "例：超音波診断装置": "مثال: جهاز موجات فوق صوتية", "型番・年式": "الطراز / السنة", "機器の写真（査定用・任意）": "صور الجهاز (للتقييم، اختياري)", "お問い合わせ内容": "الرسالة", "ご希望の機器、台数、設置場所、ご予算などをご記入ください": "الجهاز والكمية والموقع والميزانية وغير ذلك", "個人情報の取り扱いに同意する": "أوافق على سياسة الخصوصية", "送信する": "إرسال", "お問い合わせありがとうございます。担当者より折り返しご連絡いたします。（表示見本：実際には送信されていません）": "شكرًا لك، سنتواصل معك قريبًا. (عرض تجريبي: لم يتم الإرسال فعليًا)", "ご利用案内": "معلومات", "保証について": "الضمان", "特定商取引法に基づく表記": "إشعار المعاملات التجارية", "プライバシーポリシー": "سياسة الخصوصية", "CT・MRI": "الأشعة المقطعية / الرنين", "X線装置": "أجهزة الأشعة السينية", "手術室機器": "معدات غرف العمليات", "生体情報モニタ": "أجهزة مراقبة المرضى", "心電計": "أجهزة تخطيط القلب", "眼科機器": "معدات طب العيون", "歯科機器": "معدات طب الأسنان", "検査・分析機器": "أجهزة التحليل المخبري", "病院用ベッド": "أسرّة المستشفيات", "内科": "الباطنية", "外科": "الجراحة", "整形外科": "العظام", "眼科": "طب العيون", "産婦人科": "النساء والولادة", "消化器内科": "الجهاز الهضمي", "循環器内科": "أمراض القلب", "歯科": "طب الأسنان", "放射線科": "الأشعة", "健診・検査": "الفحوصات والمختبرات", "病院・病棟": "أجنحة المستشفيات", "動物病院": "العيادات البيطرية", "超音波診断装置 汎用タイプ": "جهاز موجات فوق صوتية متعدد الاستخدامات", "MRI装置 1.5T": "جهاز رنين مغناطيسي 1.5 تسلا", "一般撮影用X線装置": "جهاز أشعة سينية للتصوير العام", "電動手術台": "طاولة عمليات كهربائية", "生体情報モニタ ベッドサイド型": "جهاز مراقبة مرضى بجانب السرير", "12誘導 心電計": "جهاز تخطيط قلب 12 قناة", "オートレフケラトメータ": "جهاز قياس الانكسار والقرنية الآلي", "歯科用チェアユニット": "وحدة كرسي أسنان", "臨床検査用 自動分析装置": "محلل مخبري آلي", "電動ケアベッド": "سرير رعاية كهربائي", "ポータブル超音波診断装置": "جهاز موجات فوق صوتية محمول", "CT装置 16列": "جهاز أشعة مقطعية 16 شريحة", "キヤノン": "كانون", "シーメンス": "سيمنز", "島津製作所": "شيمادزو", "日本光電": "نيهون كوهدن", "フクダ電子": "فوكودا دينشي", "トプコン": "توبكون", "パラマウントベッド": "باراماونت بد", "その他": "أخرى", "GE": "GE", "新着": "جديد", "商談中": "قيد التفاوض", "年式": "السنة", "税別": "غير شامل الضريبة", "価格はお問い合わせ": "السعر عند الطلب", "会員価格あり": "سعر للأعضاء", "検索結果": "نتائج البحث", "新着入荷・商品一覧": "الوافدات الجديدة والمنتجات", "状態": "الحالة", "機器": "الجهاز", "条件をクリア": "مسح الفلاتر"}};
+let LANG="ja";
+const SEEN=new Set();window.__seen=SEEN;
+const T=s=>{if(s)SEEN.add(s);return (LANG==="ja"||!s)?s:((I18N[LANG]||{})[s]??s)};
+window.__T=T;
+
+const CATS=[["超音波診断装置","7089288"],["CT・MRI","13176358"],["X線装置","7617601"],["手術室機器","7108118"],["生体情報モニタ","10987487"],["心電計","263194"],["眼科機器","5752241"],["歯科機器","6812453"],["検査・分析機器","9574519"],["病院用ベッド","4966406"]];
+const DEPTS=["内科","外科","整形外科","眼科","産婦人科","消化器内科","循環器内科","歯科","放射線科","健診・検査","病院・病棟","動物病院"];
+const P=[
+ {n:"超音波診断装置 汎用タイプ",c:"超音波診断装置",d:["内科","産婦人科"],m:"キヤノン",y:2019,s:"新着",p:1980000,img:"7108390"},
+ {n:"MRI装置 1.5T",c:"CT・MRI",d:["放射線科"],m:"シーメンス",y:2014,s:"商談中",p:null,img:"7089013"},
+ {n:"一般撮影用X線装置",c:"X線装置",d:["整形外科","内科"],m:"島津製作所",y:2016,s:"入荷予定",p:null,img:"7617601"},
+ {n:"電動手術台",c:"手術室機器",d:["外科","整形外科"],m:"その他",y:2018,s:"新着",p:null,img:"7108118"},
+ {n:"生体情報モニタ ベッドサイド型",c:"生体情報モニタ",d:["外科","循環器内科","病院・病棟"],m:"日本光電",y:2018,s:"新着",p:280000,img:"10987487"},
+ {n:"12誘導 心電計",c:"心電計",d:["内科","循環器内科","健診・検査"],m:"フクダ電子",y:2020,s:"新着",p:220000,img:"263194"},
+ {n:"オートレフケラトメータ",c:"眼科機器",d:["眼科"],m:"トプコン",y:2019,s:"新着",p:420000,img:"5996596"},
+ {n:"歯科用チェアユニット",c:"歯科機器",d:["歯科"],m:"その他",y:2017,s:"入荷予定",p:null,img:"6809634"},
+ {n:"臨床検査用 自動分析装置",c:"検査・分析機器",d:["内科","健診・検査","動物病院"],m:"その他",y:2019,s:"新着",p:null,img:"9574519"},
+ {n:"電動ケアベッド",c:"病院用ベッド",d:["病院・病棟"],m:"パラマウントベッド",y:2021,s:"新品・未使用",p:180000,img:"4966406"},
+ {n:"ポータブル超音波診断装置",c:"超音波診断装置",d:["内科","整形外科","動物病院"],m:"GE",y:2020,s:"新品・未使用",p:890000,img:"7089288"},
+ {n:"CT装置 16列",c:"CT・MRI",d:["放射線科"],m:"キヤノン",y:2015,s:"入荷予定",p:null,img:"13176358"}
+];
+const ST={"新着":"s1","入荷予定":"s2","商談中":"s3","新品・未使用":"s4"};
+const $=id=>document.getElementById(id);
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const f={st:"",cat:"",dept:"",maker:"",key:""};
+const clear=()=>Object.keys(f).forEach(k=>f[k]="");
+
+function selects(){
+  const opt=(ph,arr,v)=>`<option value="">${esc(T(ph))}</option>`+arr.map(x=>`<option value="${esc(x)}"${x===v?" selected":""}>${esc(T(x))}</option>`).join("");
+  $("fCat").innerHTML=opt("機器カテゴリ",CATS.map(c=>c[0]),f.cat);
+  $("fDept").innerHTML=opt("診療科",DEPTS,f.dept);
+  $("fMaker").innerHTML=opt("メーカー",[...new Set(P.map(p=>p.m))],f.maker);
+}
+function render(){
+  const k=f.key.trim().toLowerCase();
+  const hay=p=>[p.n,p.c,p.m,...p.d].flatMap(s=>[s,T(s)]).join(" ").toLowerCase();
+  const list=P.filter(p=>(!f.st||p.s===f.st)&&(!f.cat||p.c===f.cat)&&(!f.dept||p.d.includes(f.dept))&&(!f.maker||p.m===f.maker)&&(!k||hay(p).includes(k)));
+  const yr=y=>(LANG==="ja"||LANG==="zh-CN")?y+"年":String(y);
+  $("pgrid").innerHTML=list.map(p=>`
+    <a href="#contact" class="card pc">
+      <div class="pc-img"><img src="${PH[p.img]}" alt="${esc(T(p.n))}" loading="lazy"><span class="st ${ST[p.s]}">${esc(T(p.s))}</span></div>
+      <div class="pc-b">
+        <span class="cat">${esc(T(p.c))}</span>
+        <h3>${esc(T(p.n))}</h3>
+        <dl><dt>${esc(T("メーカー"))}</dt><dd>${esc(T(p.m))}</dd><dt>${esc(T("年式"))}</dt><dd>${yr(p.y)}</dd><dt>${esc(T("診療科"))}</dt><dd>${esc(p.d.map(T).join(" / "))}</dd></dl>
+        <div class="price">${p.p?`<b>¥${p.p.toLocaleString()}</b><small>${esc(T("税別"))}</small>`:`<span class="ask">${esc(T(p.s==="商談中"?"商談中":"価格はお問い合わせ"))}</span><small>${esc(T("会員価格あり"))}</small>`}</div>
+      </div>
+    </a>`).join("");
+  $("empty").style.display=list.length?"none":"block";
+  const any=f.st||f.cat||f.dept||f.maker||f.key;
+  $("pTitle").textContent=T(any?"検索結果":"新着入荷・商品一覧");
+  const on=[["st","状態"],["cat","機器"],["dept","診療科"],["maker","メーカー"],["key","キーワード"]].filter(([x])=>f[x]);
+  $("chips").innerHTML=on.map(([x,l])=>`<button type="button" class="on" data-k="${x}">${esc(T(l))}: ${esc(x==="key"?f[x]:T(f[x]))} ×</button>`).join("")+(on.length?`<button type="button" data-k="all">${esc(T("条件をクリア"))}</button>`:"");
+}
+function sync(){$("fCat").value=f.cat;$("fDept").value=f.dept;$("fMaker").value=f.maker;$("fKey").value=f.key;document.querySelectorAll("#spTabs .pill").forEach(b=>b.classList.toggle("on",b.dataset.st===f.st))}
+function go(){render();$("products").scrollIntoView({behavior:"smooth"})}
+
+$("chips").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.k==="all")clear();else f[b.dataset.k]="";sync();render()});
+$("sp").addEventListener("submit",e=>{e.preventDefault();f.cat=$("fCat").value;f.dept=$("fDept").value;f.maker=$("fMaker").value;f.key=$("fKey").value;go()});
+$("spTabs").addEventListener("click",e=>{const b=e.target.closest(".pill");if(!b)return;f.st=b.dataset.st;sync();render()});
+$("hsearch").addEventListener("submit",e=>{e.preventDefault();clear();f.key=$("hkey").value;sync();go()});
+document.querySelectorAll(".catbar a[data-st]").forEach(a=>a.addEventListener("click",()=>{clear();f.st=a.dataset.st;sync();render()}));
+$("showAll").addEventListener("click",()=>{clear();sync();render()});
+
+let tab="kind";
+function cats(){
+  $("cbox").innerHTML=tab==="kind"
+    ?`<div class="cgrid">${CATS.map(([n,i])=>`<a href="#products" class="cg" data-v="${esc(n)}"><img src="${PH[i]}" alt="" loading="lazy"><span>${esc(T(n))}</span></a>`).join("")}</div>`
+    :`<div class="dgrid">${DEPTS.map(n=>`<a href="#products" class="dg" data-v="${esc(n)}">${esc(T(n))}</a>`).join("")}</div>`;
+  document.querySelectorAll("#catTabs button").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab));
+}
+$("catTabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;tab=b.dataset.tab;cats()});
+$("cbox").addEventListener("click",e=>{const a=e.target.closest("[data-v]");if(!a)return;clear();if(tab==="kind")f.cat=a.dataset.v;else f.dept=a.dataset.v;sync();render()});
+document.querySelectorAll(".catbar a[data-tab]").forEach(a=>a.addEventListener("click",()=>{tab=a.dataset.tab;cats()}));
+
+const FLOW={
+ buy:[["お問い合わせ","電話・フォーム・メールで、気になる機器をお知らせください。"],["お見積り","機器の状態、保証、搬入・据付の費用を含めてお見積りします。"],["ご契約","内容にご納得いただけましたら、ご注文・ご契約となります。"],["搬入・据付","ご指定の日時に配送し、設置まで行います。"],["アフターサポート","保証期間中の不具合や、使い方のご相談に対応します。"]],
+ sell:[["査定のお申し込み","電話・Web・メールで、機器名や写真をお送りください。"],["査定額のご提示","内容を確認し、査定額をご連絡します。現地確認を行う場合もあります。"],["ご成約","査定額にご納得いただけましたら、ご契約となります。"],["搬出","日程を調整し、機器を搬出します。大型装置もご相談ください。"],["お支払い","搬出・検品後、指定の口座へお振り込みします。"]]
+};
+let fm="buy";
+function flow(m){
+  fm=m||fm;
+  $("flowList").className="flow"+(fm==="sell"?" sf":"");
+  $("flowList").innerHTML=FLOW[fm].map((s,i)=>`<li class="card"><span class="n">${i+1}</span><b>${esc(T(s[0]))}</b><p>${esc(T(s[1]))}</p></li>`).join("");
+  document.querySelectorAll("#flowTabs button").forEach(b=>b.classList.toggle("on",b.dataset.f===fm));
+}
+$("flowTabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)flow(b.dataset.f)});
+document.querySelectorAll("[data-flow]").forEach(a=>a.addEventListener("click",()=>flow(a.dataset.flow)));
+
+const cf=$("cform");
+let cm="buy";
+function mode(m){cm=m;cf.classList.toggle("is-sell",m==="sell");cf.querySelector(`input[value=${m}]`).checked=true;$("csubmit").className="btn "+(m==="sell"?"btn-org":"btn-navy");$("csubmit").textContent=T(m==="sell"?"無料査定を申し込む":"送信する")}
+cf.addEventListener("change",e=>{if(e.target.name==="mode")mode(e.target.value)});
+document.querySelectorAll("[data-mode]").forEach(a=>a.addEventListener("click",()=>mode(a.dataset.mode)));
+document.querySelectorAll('a[href="#sell"],.hd-cta a,.dtel .btn-org').forEach(a=>a.addEventListener("click",()=>mode("sell")));
+cf.addEventListener("submit",e=>{e.preventDefault();$("sent").style.display="block";$("csubmit").disabled=true});
+
+const dr=$("drawer");
+$("burger").onclick=()=>dr.classList.add("open");
+$("dclose").onclick=()=>dr.classList.remove("open");
+dr.addEventListener("click",e=>{if(e.target===dr||e.target.closest("a"))dr.classList.remove("open")});
+
+// --- 静的テキストの翻訳 ---
+const nodes=[];const attrs=[];
+(function collect(){
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+    const p=n.parentElement;if(!p||p.closest("script,style,svg,#pgrid,#cbox,#flowList,#chips,#pTitle,select,.lang"))return 2;
+    return n.nodeValue.trim()?1:2}});
+  while(w.nextNode()){const n=w.currentNode;nodes.push([n,n.nodeValue])}
+  document.querySelectorAll("[placeholder],[aria-label],img[alt]").forEach(el=>["placeholder","aria-label","alt"].forEach(a=>{if(el.hasAttribute(a)&&el.getAttribute(a))attrs.push([el,a,el.getAttribute(a)])}));
+})();
+const docTitle=document.title;
+window.__collect=()=>[...new Set([...nodes.map(([,v])=>v.trim()),...attrs.map(a=>a[2]),docTitle])];
+function setLang(l){
+  LANG=I18N[l]||l==="ja"?l:"ja";
+  document.documentElement.lang=LANG;
+  document.documentElement.dir=LANG==="ar"?"rtl":"ltr";
+  nodes.forEach(([n,v])=>{const t=v.trim();n.nodeValue=v.replace(t,T(t))});
+  attrs.forEach(([el,a,v])=>el.setAttribute(a,T(v)));
+  document.title=T(docTitle);
+  document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.lang===LANG));
+  selects();sync();render();cats();flow();mode(cm);
+  try{localStorage.setItem("ag-lang",LANG)}catch(e){}
+}
+window.__setLang=setLang;
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+let init="ja";
+try{const s=localStorage.getItem("ag-lang");if(s)init=s;else{const n=(navigator.language||"").toLowerCase();init=n.startsWith("ja")?"ja":n.startsWith("zh")?"zh-CN":n.startsWith("ar")?"ar":n?"en":"ja"}}catch(e){}
+const h=(location.hash||"").slice(1);if(["ja","en","zh-CN","ar"].includes(h))init=h;
+setLang(init);
+}
+</script>
+</body>
+</html>
